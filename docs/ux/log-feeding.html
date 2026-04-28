@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喂养记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-100 font-sans">
+    <div class="flex flex-col h-screen">
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:36</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters fa-lg"></i>
+            </div>
+        </div>
+
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+            <header class="bg-gradient-to-br from-sky-500 via-cyan-500 to-blue-600 px-5 pt-5 pb-8 text-white rounded-b-[32px] shadow-lg">
+                <div class="flex items-center justify-between">
+                    <a href="record.html" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <span class="text-sm font-medium tracking-wide">快速记录</span>
+                    <button class="text-sm font-semibold">草稿</button>
+                </div>
+                <div class="mt-6">
+                    <div class="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-xs">
+                        <i class="fa-solid fa-bottle-droplet"></i>
+                        今日第 5 次喂养
+                    </div>
+                    <h1 class="mt-3 text-3xl font-bold">喂养记录</h1>
+                    <p class="mt-2 text-sm text-white/85">快速补充奶量、辅食和宝宝状态，保存后会同步到时间轴。</p>
+                </div>
+            </header>
+
+            <section class="px-4 -mt-5 space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <p class="text-sm font-semibold text-gray-900">喂养类型</p>
+                        <a href="feeding-types.html" class="text-xs font-semibold text-sky-600">去我的里配置</a>
+                    </div>
+                    <div class="mt-3 grid grid-cols-3 gap-3 text-sm">
+                        <button class="rounded-2xl bg-sky-500 text-white py-3 font-semibold shadow-sm">奶粉</button>
+                        <button class="rounded-2xl bg-slate-100 text-slate-600 py-3 font-semibold">母乳</button>
+                        <button class="rounded-2xl bg-slate-100 text-slate-600 py-3 font-semibold">辅食</button>
+                    </div>
+                    <div class="mt-3 rounded-2xl bg-sky-50 border border-sky-100 px-4 py-3 text-xs text-sky-700">
+                        已同步你的配置：奶粉、母乳、辅食、喝水。最近新增的“喝水”会在下一次记录时优先展示。
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-semibold text-gray-900">喂养量</p>
+                        <span class="text-xs text-sky-600 font-medium">建议范围 150 - 210 ml</span>
+                    </div>
+                    <div class="mt-4 rounded-3xl bg-sky-50 p-4 border border-sky-100">
+                        <div class="flex items-end justify-center gap-2">
+                            <span class="text-5xl font-bold text-sky-700">180</span>
+                            <span class="text-lg text-sky-600 mb-1">ml</span>
+                        </div>
+                        <input type="range" min="30" max="300" value="180" class="w-full mt-4 accent-sky-500">
+                    </div>
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs text-gray-500">
+                        <div class="rounded-2xl bg-slate-50 py-2">上次 160 ml</div>
+                        <div class="rounded-2xl bg-slate-50 py-2">平均 175 ml</div>
+                        <div class="rounded-2xl bg-slate-50 py-2">间隔 3 小时</div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">记录时间</p>
+                    <div class="mt-3 flex gap-3">
+                        <div class="flex-1 rounded-2xl bg-slate-50 px-4 py-3">
+                            <p class="text-xs text-gray-400">开始</p>
+                            <p class="mt-1 font-semibold text-gray-800">10:20</p>
+                        </div>
+                        <div class="flex-1 rounded-2xl bg-slate-50 px-4 py-3">
+                            <p class="text-xs text-gray-400">时长</p>
+                            <p class="mt-1 font-semibold text-gray-800">18 分钟</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">宝宝状态</p>
+                    <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                        <button class="px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium">胃口不错</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">喝得有点慢</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">喂后拍嗝</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">有吐奶</button>
+                    </div>
+                    <div class="mt-4 rounded-2xl border border-dashed border-slate-200 px-4 py-3 text-sm text-gray-400">补充备注：例如换了新奶粉、辅食接受度更高等</div>
+                </div>
+            </section>
+        </main>
+
+        <div class="px-4 pb-4 pt-3 bg-white border-t border-slate-200">
+            <div class="flex gap-3">
+                <a href="record.html" class="flex-1 rounded-2xl bg-slate-100 text-slate-700 text-center py-4 font-semibold">取消</a>
+                <a href="home.html" class="flex-[1.4] rounded-2xl bg-sky-500 text-white text-center py-4 font-semibold shadow-lg shadow-sky-200">保存喂养记录</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

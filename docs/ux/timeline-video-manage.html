@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频详情管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-100 font-sans">
+    <div class="flex flex-col h-screen">
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:31</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters fa-lg"></i>
+            </div>
+        </div>
+
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+            <header class="bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 px-5 pt-5 pb-8 text-white rounded-b-[32px] shadow-lg">
+                <div class="flex items-center justify-between">
+                    <a href="home.html" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></a>
+                    <span class="text-sm font-medium tracking-wide">时间轴详情管理</span>
+                    <button class="text-sm font-semibold">保存</button>
+                </div>
+                <h1 class="mt-6 text-3xl font-bold">视频记录管理</h1>
+                <p class="mt-2 text-sm text-white/80">用于管理封面、标题、里程碑归类和可见范围。</p>
+            </header>
+
+            <section class="px-4 -mt-5 space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">视频封面</p>
+                    <div class="mt-3 relative rounded-2xl overflow-hidden bg-black">
+                        <img class="w-full h-auto" src="assets/images/baby-walking.jpg" alt="宝宝走路视频">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-14 h-14 rounded-full bg-white/80 flex items-center justify-center text-gray-900">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">管理操作</p>
+                    <div class="mt-3 space-y-3 text-sm">
+                        <button class="w-full rounded-2xl bg-slate-50 px-4 py-4 flex items-center justify-between">
+                            <span>编辑标题与描述</span><i class="fa-solid fa-chevron-right text-gray-300"></i>
+                        </button>
+                        <button class="w-full rounded-2xl bg-slate-50 px-4 py-4 flex items-center justify-between">
+                            <span>更换封面图</span><i class="fa-solid fa-chevron-right text-gray-300"></i>
+                        </button>
+                        <button class="w-full rounded-2xl bg-slate-50 px-4 py-4 flex items-center justify-between">
+                            <span>归档到成长里程碑</span><i class="fa-solid fa-chevron-right text-gray-300"></i>
+                        </button>
+                        <div class="rounded-2xl bg-slate-50 px-4 py-4 flex items-center justify-between">
+                            <span>是否家庭可见</span>
+                            <i class="fa-solid fa-toggle-on text-emerald-500 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="px-4 pb-4 pt-3 bg-white border-t border-slate-200">
+            <div class="flex gap-3">
+                <a href="timeline-video-detail.html" class="flex-1 rounded-2xl bg-slate-100 text-slate-700 text-center py-4 font-semibold">查看态</a>
+                <a href="home.html" class="flex-[1.4] rounded-2xl bg-slate-900 text-white text-center py-4 font-semibold">完成管理</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

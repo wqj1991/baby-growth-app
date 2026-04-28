@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义事件记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-100 font-sans">
+    <div class="flex flex-col h-screen">
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:55</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters fa-lg"></i>
+            </div>
+        </div>
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+            <header class="bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 px-5 pt-5 pb-8 text-white rounded-b-[32px] shadow-lg">
+                <div class="flex items-center justify-between">
+                    <a href="log-health-more.html" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></a>
+                    <span class="text-sm font-medium tracking-wide">健康记录</span>
+                    <button class="text-sm font-semibold">设为模板</button>
+                </div>
+                <h1 class="mt-6 text-3xl font-bold">自定义事件</h1>
+                <p class="mt-2 text-sm text-white/80">用于记录未预置的健康事件，例如过敏、磕碰、夜间惊醒、换药反应等。</p>
+            </header>
+            <section class="px-4 -mt-5 space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">事件名称</p>
+                    <div class="mt-3 rounded-2xl bg-slate-50 border border-slate-200 px-4 py-4 text-sm">
+                        <p class="text-xs text-gray-400">标题</p>
+                        <p class="mt-1 font-semibold text-gray-900">疑似草莓过敏</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">事件标签</p>
+                    <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                        <button class="px-4 py-2 rounded-full bg-slate-900 text-white font-medium">过敏</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">磕碰</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">反应观察</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">详细描述</p>
+                    <div class="mt-3 rounded-2xl border border-dashed border-slate-200 px-4 py-6 text-sm text-gray-500">例如：上午第一次吃草莓后，嘴周出现轻微红点，30 分钟后逐渐消退，无呕吐和喘息。</div>
+                    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                        <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                            <p class="text-xs text-gray-400">发生时间</p>
+                            <p class="mt-1 font-semibold text-gray-900">10:20</p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                            <p class="text-xs text-gray-400">风险级别</p>
+                            <p class="mt-1 font-semibold text-gray-900">需持续观察</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div class="px-4 pb-4 pt-3 bg-white border-t border-slate-200">
+            <div class="flex gap-3">
+                <a href="log-health-more.html" class="flex-1 rounded-2xl bg-slate-100 text-slate-700 text-center py-4 font-semibold">取消</a>
+                <a href="home.html" class="flex-[1.4] rounded-2xl bg-slate-900 text-white text-center py-4 font-semibold shadow-lg shadow-slate-300">保存自定义事件</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

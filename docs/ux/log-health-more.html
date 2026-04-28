@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更多健康记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-rose-50 font-sans">
+    <div class="flex flex-col h-screen">
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:46</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full fa-lg"></i>
+            </div>
+        </div>
+
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+            <header class="bg-gradient-to-br from-red-500 via-rose-500 to-pink-500 px-5 pt-5 pb-8 text-white rounded-b-[32px] shadow-lg">
+                <div class="flex items-center justify-between">
+                    <a href="record.html" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <span class="text-sm font-medium tracking-wide">健康扩展记录</span>
+                    <button class="text-sm font-semibold">帮助</button>
+                </div>
+                <h1 class="mt-6 text-3xl font-bold">更多健康记录</h1>
+                <p class="mt-2 text-sm text-white/85">当喂养、睡眠、大小便之外还有其他需要追踪的健康事件时，在这里统一记录。</p>
+            </header>
+
+            <section class="px-4 -mt-5 space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">适合记录什么</p>
+                            <p class="text-xs text-gray-400 mt-1">按场景选择，后续会同步到首页动态和统计页</p>
+                        </div>
+                        <span class="text-xs font-semibold text-rose-500">共 6 类</span>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                        <a href="log-temperature.html" class="rounded-3xl bg-rose-100 text-rose-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-temperature-half text-lg"></i>
+                            <p class="mt-2 font-semibold">体温</p>
+                            <p class="mt-1 text-xs text-rose-600">发热、退热后复测</p>
+                        </a>
+                        <a href="log-medication.html" class="rounded-3xl bg-sky-100 text-sky-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-pills text-lg"></i>
+                            <p class="mt-2 font-semibold">用药</p>
+                            <p class="mt-1 text-xs text-sky-600">剂量、时间、频次</p>
+                        </a>
+                        <a href="log-vaccine.html" class="rounded-3xl bg-emerald-100 text-emerald-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-syringe text-lg"></i>
+                            <p class="mt-2 font-semibold">疫苗</p>
+                            <p class="mt-1 text-xs text-emerald-600">接种日期与批次</p>
+                        </a>
+                        <a href="log-symptom.html" class="rounded-3xl bg-amber-100 text-amber-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-face-dizzy text-lg"></i>
+                            <p class="mt-2 font-semibold">症状</p>
+                            <p class="mt-1 text-xs text-amber-600">咳嗽、流涕、呕吐</p>
+                        </a>
+                        <a href="log-visit.html" class="rounded-3xl bg-violet-100 text-violet-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-notes-medical text-lg"></i>
+                            <p class="mt-2 font-semibold">就诊</p>
+                            <p class="mt-1 text-xs text-violet-600">医院、科室、结论</p>
+                        </a>
+                        <a href="log-custom-event.html" class="rounded-3xl bg-slate-100 text-slate-700 px-4 py-4 text-left block">
+                            <i class="fa-solid fa-ellipsis text-lg"></i>
+                            <p class="mt-2 font-semibold">自定义</p>
+                            <p class="mt-1 text-xs text-slate-500">例如过敏、磕碰</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">如何使用</p>
+                    <div class="mt-4 space-y-3 text-sm text-gray-700">
+                        <div class="flex gap-3 rounded-2xl bg-rose-50 px-4 py-4">
+                            <div class="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold">1</div>
+                            <div>
+                                <p class="font-semibold text-gray-900">先选记录类型</p>
+                                <p class="mt-1 text-xs text-gray-500">比如发热就选“体温”，吃药就选“用药”，去医院就选“就诊”。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 rounded-2xl bg-rose-50 px-4 py-4">
+                            <div class="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold">2</div>
+                            <div>
+                                <p class="font-semibold text-gray-900">填写关键字段</p>
+                                <p class="mt-1 text-xs text-gray-500">至少填写时间、数值或结论；如果有照片、处方单，也可以作为附件补充。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 rounded-2xl bg-rose-50 px-4 py-4">
+                            <div class="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <p class="font-semibold text-gray-900">保存后自动归档</p>
+                                <p class="mt-1 text-xs text-gray-500">会自动进入时间轴，并可在统计页按健康事件回看变化趋势。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-semibold text-gray-900">示例卡片</p>
+                        <a href="home.html" class="text-xs font-semibold text-rose-500">查看首页效果</a>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <div class="rounded-3xl border border-rose-100 bg-rose-50 px-4 py-4">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-semibold text-gray-900">体温记录</p>
+                                    <p class="mt-1 text-xs text-gray-500">今天 09:20，耳温 38.2°C，已服用退烧药</p>
+                                </div>
+                                <span class="text-xs font-semibold text-rose-600">发热中</span>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl border border-sky-100 bg-sky-50 px-4 py-4">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="font-semibold text-gray-900">用药记录</p>
+                                    <p class="mt-1 text-xs text-gray-500">今天 09:30，布洛芬 3ml，饭后服用</p>
+                                </div>
+                                <span class="text-xs font-semibold text-sky-600">已提醒</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">常用模板</p>
+                    <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                        <button class="px-4 py-2 rounded-full bg-rose-100 text-rose-700 font-medium">发热追踪</button>
+                        <button class="px-4 py-2 rounded-full bg-sky-100 text-sky-700 font-medium">抗生素用药</button>
+                        <button class="px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium">疫苗回访</button>
+                        <button class="px-4 py-2 rounded-full bg-violet-100 text-violet-700 font-medium">门诊复查</button>
+                    </div>
+                    <div class="mt-4 rounded-2xl border border-dashed border-slate-200 px-4 py-4 text-sm text-gray-400">后续可以在“我的”里把常用健康模板固定到这里，减少重复输入。</div>
+                </div>
+            </section>
+        </main>
+
+        <div class="px-4 pb-4 pt-3 bg-white border-t border-slate-200">
+            <div class="flex gap-3">
+                <a href="record.html" class="flex-1 rounded-2xl bg-slate-100 text-slate-700 text-center py-4 font-semibold">返回记录页</a>
+                <a href="home.html" class="flex-[1.4] rounded-2xl bg-rose-500 text-white text-center py-4 font-semibold shadow-lg shadow-rose-200">开始记录健康事件</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

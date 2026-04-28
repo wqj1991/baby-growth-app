@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>疫苗记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-emerald-50 font-sans">
+    <div class="flex flex-col h-screen">
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:52</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full fa-lg"></i>
+            </div>
+        </div>
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+            <header class="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 px-5 pt-5 pb-8 text-white rounded-b-[32px] shadow-lg">
+                <div class="flex items-center justify-between">
+                    <a href="log-health-more.html" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></a>
+                    <span class="text-sm font-medium tracking-wide">健康记录</span>
+                    <button class="text-sm font-semibold">档案</button>
+                </div>
+                <h1 class="mt-6 text-3xl font-bold">疫苗记录</h1>
+                <p class="mt-2 text-sm text-white/85">记录接种信息、接种点、批次以及接种后观察情况。</p>
+            </header>
+            <section class="px-4 -mt-5 space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">接种信息</p>
+                    <div class="mt-3 space-y-3 text-sm">
+                        <div class="rounded-2xl bg-emerald-50 border border-emerald-100 px-4 py-4">
+                            <p class="text-xs text-emerald-600">疫苗名称</p>
+                            <p class="mt-1 font-semibold text-gray-900">13价肺炎疫苗</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                                <p class="text-xs text-gray-400">接种日期</p>
+                                <p class="mt-1 font-semibold text-gray-900">2026-04-28</p>
+                            </div>
+                            <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                                <p class="text-xs text-gray-400">批次号</p>
+                                <p class="mt-1 font-semibold text-gray-900">PN-240428</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">接种地点与剂次</p>
+                    <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+                        <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                            <p class="text-xs text-gray-400">接种点</p>
+                            <p class="mt-1 font-semibold text-gray-900">社区卫生服务中心</p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-50 px-4 py-4">
+                            <p class="text-xs text-gray-400">剂次</p>
+                            <p class="mt-1 font-semibold text-gray-900">第 3 针</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm p-4">
+                    <p class="text-sm font-semibold text-gray-900">接种后观察</p>
+                    <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                        <button class="px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium">已留观 30 分钟</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">针口轻微红</button>
+                        <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-medium">精神正常</button>
+                    </div>
+                    <div class="mt-4 rounded-2xl border border-dashed border-slate-200 px-4 py-4 text-sm text-gray-400">备注：接种禁忌、接种证照片、回访时间等</div>
+                </div>
+            </section>
+        </main>
+        <div class="px-4 pb-4 pt-3 bg-white border-t border-slate-200">
+            <div class="flex gap-3">
+                <a href="log-health-more.html" class="flex-1 rounded-2xl bg-slate-100 text-slate-700 text-center py-4 font-semibold">取消</a>
+                <a href="home.html" class="flex-[1.4] rounded-2xl bg-emerald-500 text-white text-center py-4 font-semibold shadow-lg shadow-emerald-200">保存疫苗记录</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

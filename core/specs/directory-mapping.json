@@ -1,0 +1,47 @@
+{
+  "_comment": "本地目录与夸克网盘目录映射规范 — 路径结构保持镜像，Phase 2 直接上传，无需重组",
+  "version": 1,
+  "localRoot": "[AppPrivateDir]",
+  "cloudRoot": "/Baby",
+  "mappings": [
+    {
+      "local": "Baby/Config/app_config.enc",
+      "cloud": "/Baby/Config/app_config.enc",
+      "encrypted": true,
+      "description": "AppConfig"
+    },
+    {
+      "local": "Baby/Config/baby_profile.enc",
+      "cloud": "/Baby/Config/baby_profile.enc",
+      "encrypted": true,
+      "description": "BabyProfile"
+    },
+    {
+      "local": "Baby/Logs/{yyyy-MM}/logs.enc",
+      "cloud": "/Baby/Logs/{yyyy-MM}/logs.enc",
+      "encrypted": true,
+      "description": "当月 CareLog 列表"
+    },
+    {
+      "local": "media/raw/{mediaId}.{ext}",
+      "cloud": "/Baby/Media/raw/{mediaId}.{ext}",
+      "encrypted": false,
+      "description": "原图/原视频，APP 专属相册注册媒体库"
+    },
+    {
+      "local": "media/preview/{mediaId}_thumb.jpg",
+      "cloud": "/Baby/Media/preview/{mediaId}_thumb.jpg",
+      "encrypted": false,
+      "description": "缩略图缓存，不注册媒体库，可自动清理"
+    }
+  ],
+  "conflictStrategy": "Last Write Wins (updatedAt 字段比较)",
+  "encryption": {
+    "algorithm": "AES-256-GCM",
+    "keyStorage": {
+      "android": "Android Keystore",
+      "harmony": "HarmonyOS HUKS"
+    }
+  },
+  "phase1Notes": "SyncTask 写入后立即标记 DONE，无实际上传；Phase 2 启用 SyncEngine 消费队列"
+}

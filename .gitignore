@@ -1,0 +1,69 @@
+# ------------------------------------------------------------
+# Global / OS
+# ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# ------------------------------------------------------------
+# IDE
+# ------------------------------------------------------------
+.idea/
+.vscode/
+*.iml
+
+# ------------------------------------------------------------
+# Android / Gradle
+# ------------------------------------------------------------
+.gradle/
+**/.gradle/
+local.properties
+**/local.properties
+
+# Build outputs
+**/build/
+**/captures/
+
+# Android Studio generated
+**/.cxx/
+**/externalNativeBuild/
+
+# Signing / secrets
+*.jks
+*.keystore
+*.pem
+*.p12
+key.properties
+**/key.properties
+
+# Logs
+*.log
+
+# ------------------------------------------------------------
+# HarmonyOS / DevEco Studio (ArkTS)
+# ------------------------------------------------------------
+# Dependencies
+oh_modules/
+**/oh_modules/
+
+# Build / cache outputs
+.hvigor/
+**/.hvigor/
+.harmony/
+**/.harmony/
+
+# DevEco local configs and generated artifacts
+*.har
+*.hap
+*.hsp
+
+# ------------------------------------------------------------
+# Node / frontend tooling (for Harmony tooling chain)
+# ------------------------------------------------------------
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex flex-col h-screen">
+        <!-- Top Status Bar -->
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 z-10">
+            <div>10:35</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full fa-lg"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-24">
+            <!-- Profile Header -->
+            <div class="p-6 bg-white">
+                <div class="flex items-center space-x-4">
+                    <img class="h-20 w-20 rounded-full object-cover" src="assets/images/profile-avatar.jpg" alt="用户头像">
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">爸爸</h1>
+                        <p class="text-sm text-gray-500">家庭共享账号</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings List -->
+            <div class="p-4 space-y-3">
+                <div class="bg-white rounded-xl shadow-sm">
+                    <a href="baby-profile-edit.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-t-xl">
+                        <i class="fa-solid fa-baby text-purple-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">宝宝档案编辑</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <hr class="mx-4">
+                    <a href="family-space-manage.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-b-xl">
+                        <i class="fa-solid fa-users text-green-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">家庭空间管理</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm">
+                    <a href="quark-gateway.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-t-xl">
+                        <i class="fa-solid fa-cloud text-sky-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">夸克网关</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <hr class="mx-4">
+                    <a href="record-item-settings.html" class="flex items-center p-4 transition-colors hover:bg-gray-50">
+                        <i class="fa-solid fa-sliders text-slate-700 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">添加项管理</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <hr class="mx-4">
+                    <a href="album-manage.html" class="flex items-center p-4 transition-colors hover:bg-gray-50">
+                        <i class="fa-solid fa-photo-film text-orange-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">相册管理</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                     <hr class="mx-4">
+                    <a href="cache-manage.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-b-xl">
+                        <i class="fa-solid fa-broom text-teal-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">缓存管理</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm">
+                    <a href="system-settings.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-t-xl">
+                        <i class="fa-solid fa-gear text-gray-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">系统设置</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                     <hr class="mx-4">
+                    <a href="message-manage.html" class="flex items-center p-4 transition-colors hover:bg-gray-50 rounded-b-xl">
+                        <i class="fa-solid fa-bell text-indigo-500 w-6 text-center"></i>
+                        <span class="ml-3 font-medium text-gray-800">消息管理</span>
+                        <i class="fa-solid fa-chevron-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+                
+                 <div class="bg-white rounded-xl shadow-sm">
+                    <a href="#" class="flex items-center p-4 text-red-500 transition-colors hover:bg-red-50 rounded-xl">
+                        <i class="fa-solid fa-arrow-right-from-bracket w-6 text-center"></i>
+                        <span class="ml-3 font-medium">退出登录</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Tab Bar -->
+        <nav class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm h-20 flex justify-around items-center text-gray-500 border-t border-gray-200 rounded-b-2xl">
+            <a href="home.html" class="text-center transition-colors hover:text-blue-600">
+                <i class="fa-solid fa-house fa-lg"></i>
+                <span class="block text-xs font-medium mt-1">首页</span>
+            </a>
+            <a href="record.html" class="text-center group">
+                <div class="w-16 h-16 -mt-10 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg transform transition-transform group-hover:scale-110">
+                    <i class="fa-solid fa-plus fa-2x"></i>
+                </div>
+            </a>
+            <a href="profile.html" class="text-center text-blue-500 transition-colors hover:text-blue-600">
+                <i class="fa-solid fa-user fa-lg"></i>
+                <span class="block text-xs font-medium mt-1">我的</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

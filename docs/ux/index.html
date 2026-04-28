@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝宝成长记录 - 原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gray-200 flex flex-col items-center justify-center min-h-screen p-4 font-sans">
+
+    <h1 class="text-2xl font-bold text-gray-700 mb-4">宝宝成长记录APP - 高保真原型</h1>
+
+    <div class="flex flex-wrap justify-center items-start gap-8">
+
+        <!-- HUAWEI Mate 70 Pro -->
+        <div class="phone-container">
+            <h2 class="text-lg font-semibold text-gray-600 text-center mb-2">HUAWEI Mate 70 Pro</h2>
+            <div class="marvel-device mate70-pro">
+                <div class="top-bar"></div>
+                <div class="sleep"></div>
+                <div class="volume"></div>
+                <div class="camera"></div>
+                <div class="screen">
+                    <iframe src="home.html" frameborder="0" class="w-full h-full"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- HUAWEI Mate 80 Pro Max -->
+        <div class="phone-container">
+            <h2 class="text-lg font-semibold text-gray-600 text-center mb-2">HUAWEI Mate 80 Pro Max</h2>
+            <div class="marvel-device mate80-pro-max">
+                <div class="top-bar"></div>
+                <div class="sleep"></div>
+                <div class="volume"></div>
+                <div class="camera"></div>
+                <div class="screen">
+                     <iframe src="home.html" frameborder="0" class="w-full h-full"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-6xl mt-8">
+        <h2 class="text-xl font-bold text-gray-700 mb-4 text-center">所有界面平铺预览</h2>
+        <div id="previewGrid" class="grid gap-6" data-min-card-width="360" data-grid-gap="24">
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">1. 首页 (home.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="home.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">2. 快速记录 (record.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="record.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">3. 数据统计 (stats.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="stats.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">4. 我的 (profile.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="profile.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">5. 喂养记录 (log-feeding.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-feeding.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">6. 大小便记录 (log-potty.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-potty.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">7. 睡眠记录 (log-sleep.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-sleep.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">8. 身高体重记录 (log-growth.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-growth.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">9. 更多健康记录 (log-health-more.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-health-more.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">10. 体温记录 (log-temperature.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-temperature.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">11. 用药记录 (log-medication.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-medication.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">12. 疫苗记录 (log-vaccine.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-vaccine.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">13. 症状记录 (log-symptom.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-symptom.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">14. 就诊记录 (log-visit.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-visit.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">15. 自定义事件 (log-custom-event.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="log-custom-event.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">16. 添加项管理 (record-item-settings.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="record-item-settings.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">17. 喂养类型配置 (feeding-types.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="feeding-types.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">18. 宝宝档案编辑 (baby-profile-edit.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="baby-profile-edit.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">19. 家庭空间管理 (family-space-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="family-space-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">20. 夸克网关 (quark-gateway.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="quark-gateway.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">21. 相册管理 (album-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="album-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">22. 缓存管理 (cache-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="cache-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">23. 系统设置 (system-settings.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="system-settings.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">24. 消息管理 (message-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="message-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">25. 图文查看态 (timeline-photo-detail.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="timeline-photo-detail.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">26. 图文管理态 (timeline-photo-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="timeline-photo-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">27. 视频查看态 (timeline-video-detail.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="timeline-video-detail.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+            <div>
+                <h3 class="text-md font-semibold text-gray-600 text-center mb-2">28. 视频管理态 (timeline-video-manage.html)</h3>
+                <div class="h-[700px] border rounded-lg shadow-lg overflow-hidden"><iframe src="timeline-video-manage.html" frameborder="0" class="w-full h-full"></iframe></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const previewGrid = document.getElementById('previewGrid');
+
+        function updatePreviewColumns() {
+            if (!previewGrid) {
+                return;
+            }
+
+            const minCardWidth = Number(previewGrid.dataset.minCardWidth || 360);
+            const gridGap = Number(previewGrid.dataset.gridGap || 24);
+            const containerWidth = previewGrid.clientWidth;
+            const columns = Math.max(1, Math.floor((containerWidth + gridGap) / (minCardWidth + gridGap)));
+
+            previewGrid.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
+        }
+
+        updatePreviewColumns();
+        window.addEventListener('resize', updatePreviewColumns);
+
+        if (window.ResizeObserver) {
+            const observer = new ResizeObserver(updatePreviewColumns);
+            observer.observe(previewGrid);
+        }
+    </script>
+</body>
+</html>

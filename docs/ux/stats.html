@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex flex-col h-screen">
+        <!-- Top Status Bar -->
+        <div class="bg-white/80 backdrop-blur-sm h-10 flex items-center justify-between px-4 text-sm font-medium text-gray-800 shadow-sm z-10">
+            <div>10:32</div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full fa-lg"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto custom-scrollbar pb-24">
+            <!-- Header -->
+            <header class="sticky top-0 bg-white/80 backdrop-blur-sm z-10 p-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">数据统计</h1>
+                    <i class="fa-solid fa-calendar-days text-xl text-gray-600"></i>
+                </div>
+                <!-- Date Range Picker -->
+                <div class="mt-4">
+                    <div class="relative">
+                        <button class="w-full bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded-lg flex justify-between items-center">
+                            <span>本周：4月22日 - 4月28日</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-4 space-y-6">
+                <!-- Growth Chart -->
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-2">身高体重曲线</h2>
+                    <div class="h-48">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feeding Chart -->
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-2">喂养统计</h2>
+                    <div class="h-48">
+                        <canvas id="feedingChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Sleep Chart -->
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-2">睡眠分析</h2>
+                     <div class="h-48">
+                        <canvas id="sleepChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Diaper Chart -->
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-2">排便统计</h2>
+                     <div class="h-48">
+                        <canvas id="diaperChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Tab Bar -->
+        <nav class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm h-20 flex justify-around items-center text-gray-500 border-t border-gray-200 rounded-b-2xl">
+            <a href="home.html" class="text-center">
+                <i class="fa-solid fa-house fa-lg"></i>
+                <span class="block text-xs font-medium mt-1">首页</span>
+            </a>
+            <a href="record.html" class="text-center">
+                 <div class="w-16 h-16 -mt-10 bg-white rounded-full flex items-center justify-center text-gray-500 shadow-lg border">
+                    <i class="fa-solid fa-plus fa-2x"></i>
+                </div>
+            </a>
+            <a href="profile.html" class="text-center">
+                <i class="fa-solid fa-user fa-lg"></i>
+                <span class="block text-xs font-medium mt-1">我的</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Mock Data
+        const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+        // Growth Chart
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['12个月', '14个月', '16个月', '18个月'],
+                datasets: [{
+                    label: '身高 (cm)',
+                    data: [75, 78, 81, 83],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: '体重 (kg)',
+                    data: [9.5, 10.2, 10.8, 11.5],
+                    borderColor: 'rgb(16, 185, 129)',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false }, y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false } } } }
+        });
+
+        // Feeding Chart
+        const feedingCtx = document.getElementById('feedingChart').getContext('2d');
+        new Chart(feedingCtx, {
+            type: 'bar',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: '奶量 (ml)',
+                    data: [720, 750, 700, 780, 800, 760, 740],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // Sleep Chart
+        const sleepCtx = document.getElementById('sleepChart').getContext('2d');
+        new Chart(sleepCtx, {
+            type: 'line',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: '总睡眠 (h)',
+                    data: [11, 10.5, 11.5, 10, 12, 12.5, 11],
+                    borderColor: 'rgb(139, 92, 246)',
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+        
+        // Diaper Chart
+        const diaperCtx = document.getElementById('diaperChart').getContext('2d');
+        new Chart(diaperCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['小便', '大便', '混合'],
+                datasets: [{
+                    label: '换片次数',
+                    data: [30, 8, 5],
+                    backgroundColor: [
+                        'rgb(250, 204, 21)',
+                        'rgb(133, 77, 14)',
+                        'rgb(249, 115, 22)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>

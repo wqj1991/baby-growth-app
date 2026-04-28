@@ -49,7 +49,10 @@ ksp {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.material)
+    implementation(libs.androidx.swiperefreshlayout)
 
     // Hilt DI
     implementation(libs.hilt.android)
@@ -76,4 +79,7 @@ dependencies {
 
     // JSON
     implementation(libs.gson)
+
+    // MPAndroidChart (vendored locally to avoid JitPack SSL issues)
+    implementation(files("libs/MPAndroidChart-v3.1.0.aar"))
 }

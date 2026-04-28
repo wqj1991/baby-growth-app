@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_6">
+
+            <ImageView
+                android:id="@+id/userAvatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                tools:src="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="爸爸"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/font_size_xl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="家庭共享账号"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/font_size_sm" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_4"
+            android:divider="@drawable/divider_space"
+            android:showDividers="middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_card_background"
+                android:orientation="vertical"
+                android:divider="@drawable/divider_line"
+                android:showDividers="middle">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editBabyProfileButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="宝宝档案编辑"
+                    app:icon="@drawable/ic_baby" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/familySpaceButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="家庭空间管理"
+                    app:icon="@drawable/ic_family" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_card_background"
+                android:orientation="vertical"
+                android:divider="@drawable/divider_line"
+                android:showDividers="middle">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/quarkGatewayButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="夸克网关"
+                    app:icon="@drawable/ic_cloud" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addItemManagementButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="添加项管理"
+                    app:icon="@drawable/ic_sliders" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/albumManagementButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="相册管理"
+                    app:icon="@drawable/ic_album" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cacheManagementButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="缓存管理"
+                    app:icon="@drawable/ic_broom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_card_background"
+                android:orientation="vertical"
+                android:divider="@drawable/divider_line"
+                android:showDividers="middle">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/systemSettingsButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="系统设置"
+                    app:icon="@drawable/ic_settings" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/messageManagementButton"
+                    style="@style/Widget.App.Button.SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="消息管理"
+                    app:icon="@drawable/ic_bell" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutButton"
+                style="@style/Widget.App.Button.SettingsItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="退出登录"
+                android:textColor="@color/red_500"
+                app:icon="@drawable/ic_logout"
+                app:iconTint="@color/red_500"
+                app:rippleColor="@color/red_500" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -20,4 +20,10 @@
     <dimen name="corner_radius_lg">8dp</dimen>
     <dimen name="corner_radius_xl">12dp</dimen>
     <dimen name="corner_radius_2xl">16dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_md">4dp</dimen>
+
+    <!-- Avatar Sizes -->
+    <dimen name="avatar_size_md">40dp</dimen>
 </resources>

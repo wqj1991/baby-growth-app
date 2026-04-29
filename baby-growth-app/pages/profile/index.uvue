@@ -199,14 +199,14 @@
   }
 
   .status-bar {
-    height: 2.5rem;
+    height: 40px;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
-    font-size: 0.875rem;
+    padding: 0 16px;
+    font-size: 14px;
     font-weight: 500;
     color: #1f2937;
   }
@@ -214,10 +214,10 @@
   .status-icons {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
   }
 
   .status-icon {
+    margin-right: 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -230,17 +230,17 @@
 
   .profile-header {
     background-color: #ffffff;
-    padding: 1.5rem;
+    padding: 24px;
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
   .profile-avatar {
-    width: 5rem;
-    height: 5rem;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    margin-right: 1rem;
+    margin-right: 16px;
   }
 
   .profile-info {
@@ -249,35 +249,35 @@
   }
 
   .profile-name {
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
     color: #111827;
-    margin-bottom: 0.25rem;
+    margin-bottom: 4px;
   }
 
   .profile-desc {
-    font-size: 0.875rem;
+    font-size: 14px;
     color: #6b7280;
   }
 
   .settings-container {
-    padding: 1rem;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
   }
 
   .settings-group {
+    margin-bottom: 12px;
     background-color: #ffffff;
-    border-radius: 0.75rem;
-    box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
   .settings-item {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 1rem;
+    padding: 16px;
   }
 
   .settings-item-danger {
@@ -285,13 +285,13 @@
   }
 
   .settings-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 24px;
+    height: 24px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-right: 0.75rem;
+    margin-right: 12px;
   }
 
   .settings-icon-purple {
@@ -332,7 +332,7 @@
 
   .settings-label {
     flex: 1;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 500;
     color: #1f2937;
   }
@@ -349,13 +349,13 @@
   }
 
   .settings-divider {
-    margin: 0 1rem;
+    margin: 0 16px;
     height: 1px;
     background-color: #e5e7eb;
   }
 
   .bottom-space {
-    height: 6.25rem;
+    height: 100px;
   }
 
   .tab-bar {
@@ -363,7 +363,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4rem;
+    height: 64px;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: row;
@@ -371,7 +371,7 @@
     align-items: center;
     border-top: 1px solid #e5e7eb;
     padding-bottom: env(safe-area-inset-bottom);
-    overflow: revert;
+    overflow: visible;
   }
 
   .tab-item {
@@ -386,11 +386,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.25rem;
+    margin-bottom: 4px;
   }
 
   .tab-label {
-    font-size: 0.75rem;
+    font-size: 12px;
     font-weight: 500;
     color: #6b7280;
   }
@@ -400,18 +400,18 @@
   }
 
   .tab-item-center {
-    margin-top: -2.5rem;
+    margin-top: -40px;
   }
 
   .tab-center-btn {
-    width: 4rem;
-    height: 4rem;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background-color: #3b82f6;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
 </style>

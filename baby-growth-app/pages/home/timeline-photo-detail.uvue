@@ -1,0 +1,308 @@
+<template>
+  <view class="page-root">
+    <view class="status-bar">
+      <text class="status-time">10:26</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <view class="header">
+        <view class="back-button" @tap="goBack()">
+          <uni-icons type="left" :size="18" color="#374151"></uni-icons>
+        </view>
+        <view class="header-text">
+          <text class="header-title">动态详情</text>
+          <text class="header-subtitle">图文记录</text>
+        </view>
+      </view>
+
+      <view class="content-wrap">
+        <view class="detail-card">
+          <view class="card-header">
+            <view class="avatar avatar-mom">
+              <text class="avatar-text">妈</text>
+            </view>
+            <view class="author-info">
+              <text class="author-name">妈妈</text>
+              <text class="author-time">2小时前</text>
+            </view>
+          </view>
+          <text class="card-content">今天天气真好，带宝宝去公园玩啦！还练习了小跑步，状态超好。</text>
+          <image class="card-image" src="/static/shuijiao.jpg" mode="widthFix"></image>
+
+          <view class="card-footer">
+            <view class="footer-row">
+              <text class="footer-meta">点赞 12 · 评论 3</text>
+              <text class="footer-action" @tap="showToast('下载原图后续接入')">下载原图</text>
+            </view>
+            <view class="comment-box">
+              <text class="comment-title">家庭评论</text>
+              <text class="comment-text">爸爸：今天拍得真好，笑得好开心。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="bottom-action">
+      <view class="action-btn" @tap="goHome()">
+        <text class="action-btn-text">返回首页时间轴</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function goBack() {
+    uni.navigateBack({
+      fail: () => {
+        uni.redirectTo({
+          url: '/pages/home/index'
+        })
+      }
+    })
+  }
+
+  function goHome() {
+    uni.redirectTo({
+      url: '/pages/home/index',
+      fail: () => {
+        uni.reLaunch({
+          url: '/pages/home/index'
+        })
+      }
+    })
+  }
+
+  function showToast(title: string) {
+    uni.showToast({
+      title,
+      icon: 'none'
+    })
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #f3f4f6;
+  }
+
+  .status-bar {
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1f2937;
+    box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 0.625rem;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header {
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #f3f4f6;
+  }
+
+  .back-button {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 1.125rem;
+    background-color: #f3f4f6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-text {
+    margin-left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .header-subtitle {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.125rem;
+  }
+
+  .content-wrap {
+    padding: 1rem;
+  }
+
+  .detail-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0.1875rem 0.5rem rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+  }
+
+  .avatar-mom {
+    background-color: #fda4af;
+  }
+
+  .avatar-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .author-time {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.0625rem;
+  }
+
+  .card-content {
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    color: #374151;
+    line-height: 1.5;
+  }
+
+  .card-image {
+    width: 100%;
+    margin-top: 0.625rem;
+    display: flex;
+  }
+
+  .card-footer {
+    padding: 1rem;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #f3f4f6;
+  }
+
+  .footer-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-meta {
+    font-size: 0.8125rem;
+    color: #6b7280;
+  }
+
+  .footer-action {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #3b82f6;
+  }
+
+  .comment-box {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background-color: #f9fafb;
+  }
+
+  .comment-title {
+    font-size: 0.75rem;
+    color: #9ca3af;
+  }
+
+  .comment-text {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: #374151;
+  }
+
+  .bottom-action {
+    background-color: #ffffff;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #e5e7eb;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .action-btn {
+    height: 3rem;
+    border-radius: 0.875rem;
+    background-color: #3b82f6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-btn-text {
+    color: #ffffff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+</style>

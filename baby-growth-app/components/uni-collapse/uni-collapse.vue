@@ -21,7 +21,7 @@
   }
 
   // 关闭所有
-  function toggle(elId:string) {
+  function collapseToggle(elId:string) {
     // 开启手风琴效果才回关闭其他
     if (props.accordion && child_nodes.length > 0) {
       child_nodes.forEach((item : ItemChildType) => {
@@ -35,5 +35,5 @@
   }
 
   provide('uni-collapse-register-child', registerChild)
-  provide('k-collapse-child-toggle', toggle)
+  provide('uni-collapse-child-toggle', collapseToggle)
 </script>

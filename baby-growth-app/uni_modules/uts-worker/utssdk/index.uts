@@ -103,10 +103,10 @@ export class UTSWorkerImpl{
 		})
 	}
 	destroy(){
-
-		if (this.workerImp != null) {
+		const worker = this.workerImp;
+		if (worker != null) {
 			console.log('[UTS Plugin] 销毁Worker');
-			this.workerImp.terminate();
+			worker.terminate();
 			this.workerImp = null;
 			this.options = null;
 			this.errorOptions = null;

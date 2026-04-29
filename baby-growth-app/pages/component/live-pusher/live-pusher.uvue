@@ -153,51 +153,21 @@
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.start({
-      success: (res) => {
-        console.log("start", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("start", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("start", JSON.stringify(res));
-      }
-    });
+    context.value?.start(null);
   };
   const pause = () => {
     if (!isUrlValid()) return;
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.pause({
-      success: (res) => {
-        console.log("pause", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("pause", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("pause", JSON.stringify(res));
-      }
-    });
+    context.value?.pause(null);
   };
   const resume = () => {
     if (!isUrlValid()) return;
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.resume({
-      success: (res) => {
-        console.log("resume", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("resume", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("resume", JSON.stringify(res));
-      }
-    });
+    context.value?.resume(null);
   };
   const stop = () => {
     if (!isUrlValid()) return;
@@ -205,83 +175,33 @@
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.stop({
-      success: (res) => {
-        console.log("stop", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("stop", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("stop", JSON.stringify(res));
-      }
-    });
+    context.value?.stop(null);
   };
   const switchCamera = () => {
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.switchCamera({
-      success: (res) => {
-        console.log("switchCamera", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("switchCamera", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("switchCamera", JSON.stringify(res));
-      }
-    });
+    context.value?.switchCamera(null);
   };
   const snapshot = () => {
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
-    context.value?.snapshot({
-      success: (res) => {
-        console.log("snapshot", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("snapshot", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("snapshot", JSON.stringify(res));
-      }
-    });
+    context.value?.snapshot(null);
   };
   const startPreview = () => {
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
     previewState.value = true;
-    context.value?.startPreview({
-      success: (res) => {
-        console.log("startPreview", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("startPreview", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("startPreview", JSON.stringify(res));
-      }
-    });
+    context.value?.startPreview(null);
   };
   const stopPreview = () => {
     if (context.value == null) {
       context.value = uni.createLivePusherContext("live-pusher", instance.value);
     }
     previewState.value = false;
-    context.value?.stopPreview({
-      success: (res) => {
-        console.log("stopPreview", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("stopPreview", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("stopPreview", JSON.stringify(res));
-      }
-    });
+    context.value?.stopPreview(null);
   };
 
   const localMirrorItemTypes = [{ "value": 0, "name": "auto(前置摄像头镜像，后置摄像头不镜像)" }, { "value": 1, "name": "enable(前后置摄像头均镜像)" }, { "value": 2, "name": "disable(前后置摄像头均不镜像)" }] as ItemType[];

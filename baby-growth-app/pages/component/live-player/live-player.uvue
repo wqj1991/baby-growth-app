@@ -98,101 +98,31 @@
   };
   const play = () => {
     if (!isSrcValid()) return;
-    context.value?.play({
-      success: (res) => {
-        console.log("play", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("play", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("play", JSON.stringify(res));
-      }
-    });
+    context.value?.play(null);
   };
   const pause = () => {
     if (!isSrcValid()) return;
-    context.value?.pause({
-      success: (res) => {
-        console.log("pause", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("pause", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("pause", JSON.stringify(res));
-      }
-    });
+    context.value?.pause(null);
   };
   const resume = () => {
     if (!isSrcValid()) return;
-    context.value?.resume({
-      success: (res) => {
-        console.log("resume", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("resume", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("resume", JSON.stringify(res));
-      }
-    });
+    context.value?.resume(null);
   };
   const stop = () => {
     if (!isSrcValid()) return;
-    context.value?.stop({
-      success: (res) => {
-        console.log("stop", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("stop", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("stop", JSON.stringify(res));
-      }
-    });
+    context.value?.stop(null);
   };
   const mute = () => {
     if (!isSrcValid()) return;
-    context.value?.mute({
-      success: (res) => {
-        console.log("mute", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("mute", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("mute", JSON.stringify(res));
-      }
-    });
+    context.value?.mute(null);
   };
   const requestFullScreen = () => {
     if (!isSrcValid()) return;
-    context.value?.requestFullScreen({
-      success: (res) => {
-        console.log("requestFullScreen", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("requestFullScreen", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("requestFullScreen", JSON.stringify(res));
-      }
-    });
+    context.value?.requestFullScreen(null);
   };
   const exitFullScreen = () => {
     if (!isSrcValid()) return;
-    context.value?.exitFullScreen({
-      success: (res) => {
-        console.log("exitFullScreen", JSON.stringify(res));
-      },
-      fail: (err) => {
-        console.log("exitFullScreen", JSON.stringify(err));
-      },
-      complete: (res) => {
-        console.log("exitFullScreen", JSON.stringify(res));
-      }
-    });
+    context.value?.exitFullScreen(null);
   };
 
   const objectFitItemTypes = [{ "value": 0, "name": "contain" }, { "value": 1, "name": "fillCrop" }] as ItemType[];

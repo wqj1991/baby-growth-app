@@ -41,8 +41,8 @@
   // 组件唯一ID
   const elId = ref(`uni_collapse_item_${Math.ceil(Math.random() * 10e5).toString(36)}`)
 
-  const registerChild = inject<((child : ItemChildType) => string) | null>('uni-collapse-register-child', null)
-  const collapseToggle = inject<((elId : string) => string) | null>('k-collapse-child-toggle', null)
+  const registerChild = inject<((child : ItemChildType) => void) | null>('uni-collapse-register-child', null)
+  const collapseToggle = inject<((elId : string) => void) | null>('uni-collapse-child-toggle', null)
 
   function openOrClose(open : boolean) {
     setTimeout(() => {

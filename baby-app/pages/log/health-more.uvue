@@ -1,0 +1,641 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:46</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-rose">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康扩展记录</text>
+          <text class="nav-action">帮助</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">更多健康记录</text>
+          <text class="header-desc">当喂养、睡眠、大小便之外还有其他需要追踪的健康事件时，在这里统一记录。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Record Types -->
+        <view class="card">
+          <view class="card-header">
+            <view>
+              <text class="card-title">适合记录什么</text>
+              <text class="card-subtitle">按场景选择，后续会同步到首页动态和统计页</text>
+            </view>
+            <text class="card-badge">共 6 类</text>
+          </view>
+          <view class="type-grid mt-4">
+            <view class="type-card type-card-rose" @tap="goTemperature">
+              <uni-icons type="thermometer" :size="20" color="#dc2626"></uni-icons>
+              <text class="type-name">体温</text>
+              <text class="type-desc">发热、退热后复测</text>
+            </view>
+            <view class="type-card type-card-sky" @tap="goMedication">
+              <uni-icons type="pill" :size="20" color="#0284c7"></uni-icons>
+              <text class="type-name">用药</text>
+              <text class="type-desc">剂量、时间、频次</text>
+            </view>
+            <view class="type-card type-card-emerald" @tap="goVaccine">
+              <uni-icons type="syringe" :size="20" color="#059669"></uni-icons>
+              <text class="type-name">疫苗</text>
+              <text class="type-desc">接种日期与批次</text>
+            </view>
+            <view class="type-card type-card-amber" @tap="goSymptom">
+              <uni-icons type="face-dizzy" :size="20" color="#d97706"></uni-icons>
+              <text class="type-name">症状</text>
+              <text class="type-desc">咳嗽、流涕、呕吐</text>
+            </view>
+            <view class="type-card type-card-violet" @tap="goVisit">
+              <uni-icons type="notes-medical" :size="20" color="#7c3aed"></uni-icons>
+              <text class="type-name">就诊</text>
+              <text class="type-desc">医院、科室、结论</text>
+            </view>
+            <view class="type-card type-card-slate" @tap="goCustom">
+              <uni-icons type="ellipsis" :size="20" color="#475569"></uni-icons>
+              <text class="type-name">自定义</text>
+              <text class="type-desc">例如过敏、磕碰</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- How to Use -->
+        <view class="card">
+          <text class="card-title">如何使用</text>
+          <view class="guide-list mt-4">
+            <view class="guide-item">
+              <view class="guide-number">1</view>
+              <view class="guide-content">
+                <text class="guide-step-title">先选记录类型</text>
+                <text class="guide-step-desc">比如发热就选"体温"，吃药就选"用药"，去医院就选"就诊"。</text>
+              </view>
+            </view>
+            <view class="guide-item">
+              <view class="guide-number">2</view>
+              <view class="guide-content">
+                <text class="guide-step-title">填写关键字段</text>
+                <text class="guide-step-desc">至少填写时间、数值或结论；如果有照片、处方单，也可以作为附件补充。</text>
+              </view>
+            </view>
+            <view class="guide-item">
+              <view class="guide-number">3</view>
+              <view class="guide-content">
+                <text class="guide-step-title">保存后自动归档</text>
+                <text class="guide-step-desc">会自动进入时间轴，并可在统计页按健康事件回看变化趋势。</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- Example Cards -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">示例卡片</text>
+            <text class="card-action" @tap="goHome">查看首页效果</text>
+          </view>
+          <view class="example-list mt-4">
+            <view class="example-card example-card-rose">
+              <view class="example-info">
+                <text class="example-title">体温记录</text>
+                <text class="example-desc">今天 09:20，耳温 38.2°C，已服用退烧药</text>
+              </view>
+              <text class="example-tag">发热中</text>
+            </view>
+            <view class="example-card example-card-sky">
+              <view class="example-info">
+                <text class="example-title">用药记录</text>
+                <text class="example-desc">今天 09:30，布洛芬 3ml，饭后服用</text>
+              </view>
+              <text class="example-tag">已提醒</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Templates -->
+        <view class="card">
+          <text class="card-title">常用模板</text>
+          <view class="template-tags mt-3">
+            <view class="template-tag template-tag-rose" @tap="useTemplate('fever')">
+              <text>发热追踪</text>
+            </view>
+            <view class="template-tag template-tag-sky" @tap="useTemplate('antibiotic')">
+              <text>抗生素用药</text>
+            </view>
+            <view class="template-tag template-tag-emerald" @tap="useTemplate('vaccine')">
+              <text>疫苗回访</text>
+            </view>
+            <view class="template-tag template-tag-violet" @tap="useTemplate('checkup')">
+              <text>门诊复查</text>
+            </view>
+          </view>
+          <view class="template-note mt-4">
+            <text>后续可以在"我的"里把常用健康模板固定到这里，减少重复输入。</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>返回记录页</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="goTemperature">
+        <text>开始记录健康事件</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function goHome() {
+    uni.switchTab({
+      url: '/pages/home/index'
+    })
+  }
+
+  function goTemperature() {
+    uni.navigateTo({
+      url: '/pages/log/temperature'
+    })
+  }
+
+  function goMedication() {
+    uni.navigateTo({
+      url: '/pages/log/medication'
+    })
+  }
+
+  function goVaccine() {
+    uni.navigateTo({
+      url: '/pages/log/vaccine'
+    })
+  }
+
+  function goSymptom() {
+    uni.navigateTo({
+      url: '/pages/log/symptom'
+    })
+  }
+
+  function goVisit() {
+    uni.navigateTo({
+      url: '/pages/log/visit'
+    })
+  }
+
+  function goCustom() {
+    uni.navigateTo({
+      url: '/pages/log/custom-event'
+    })
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #fff1f2;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-rose {
+    background: linear-gradient(135deg, #ef4444 0%, #f43f5e 50%, #ec4899 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+    display: block;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ef4444;
+  }
+
+  .card-action {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ef4444;
+  }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .type-card {
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .type-card-rose {
+    background-color: #ffe4e6;
+  }
+
+  .type-card-sky {
+    background-color: #e0f2fe;
+  }
+
+  .type-card-emerald {
+    background-color: #d1fae5;
+  }
+
+  .type-card-amber {
+    background-color: #fef3c7;
+  }
+
+  .type-card-violet {
+    background-color: #ede9fe;
+  }
+
+  .type-card-slate {
+    background-color: #f1f5f9;
+  }
+
+  .type-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .type-card-rose .type-name {
+    color: #be123c;
+  }
+
+  .type-card-sky .type-name {
+    color: #0369a1;
+  }
+
+  .type-card-emerald .type-name {
+    color: #047857;
+  }
+
+  .type-card-amber .type-name {
+    color: #b45309;
+  }
+
+  .type-card-violet .type-name {
+    color: #6d28d9;
+  }
+
+  .type-card-slate .type-name {
+    color: #475569;
+  }
+
+  .type-desc {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .type-card-rose .type-desc {
+    color: #f43f5e;
+  }
+
+  .type-card-sky .type-desc {
+    color: #0ea5e9;
+  }
+
+  .type-card-emerald .type-desc {
+    color: #10b981;
+  }
+
+  .type-card-amber .type-desc {
+    color: #f59e0b;
+  }
+
+  .type-card-violet .type-desc {
+    color: #8b5cf6;
+  }
+
+  .guide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .guide-item {
+    display: flex;
+    gap: 12px;
+  }
+
+  .guide-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .guide-content {
+    flex: 1;
+    background-color: #fff1f2;
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .guide-step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .guide-step-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .example-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .example-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .example-card-rose {
+    background-color: #ffe4e6;
+    border: 1px solid #fecdd3;
+  }
+
+  .example-card-sky {
+    background-color: #e0f2fe;
+    border: 1px solid #bae6fd;
+  }
+
+  .example-info {
+    flex: 1;
+  }
+
+  .example-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .example-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .example-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  .example-card-rose .example-tag {
+    color: #dc2626;
+    background-color: #fee2e2;
+  }
+
+  .example-card-sky .example-tag {
+    color: #0284c7;
+    background-color: #e0f2fe;
+  }
+
+  .template-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .template-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .template-tag-rose {
+    background-color: #ffe4e6;
+    color: #be123c;
+  }
+
+  .template-tag-sky {
+    background-color: #e0f2fe;
+    color: #0369a1;
+  }
+
+  .template-tag-emerald {
+    background-color: #d1fae5;
+    color: #047857;
+  }
+
+  .template-tag-violet {
+    background-color: #ede9fe;
+    color: #6d28d9;
+  }
+
+  .template-note {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

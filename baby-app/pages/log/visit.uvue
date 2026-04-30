@@ -1,0 +1,363 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:54</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-violet">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康记录</text>
+          <text class="nav-action">上传单据</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">就诊记录</text>
+          <text class="header-desc">记录医院、科室、医生建议和检查结果，方便后续复查和家庭共享。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Visit Info -->
+        <view class="card">
+          <text class="card-title">就诊信息</text>
+          <view class="visit-info mt-3">
+            <view class="hospital-grid">
+              <view class="hospital-block hospital-block-active">
+                <text class="info-label">医院</text>
+                <text class="info-value">儿童医院</text>
+              </view>
+              <view class="hospital-block">
+                <text class="info-label">科室</text>
+                <text class="info-value">儿科门诊</text>
+              </view>
+            </view>
+            <view class="conclusion-block">
+              <text class="info-label">医生结论</text>
+              <text class="conclusion-text">上呼吸道感染，建议继续观察体温并按时用药。</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Treatment -->
+        <view class="card">
+          <text class="card-title">处置与复查</text>
+          <view class="treatment-tags mt-3">
+            <view class="treatment-tag treatment-tag-active" @tap="toggleTreatment('已开药')">
+              <text>已开药</text>
+            </view>
+            <view class="treatment-tag treatment-tag-active" @tap="toggleTreatment('复诊')">
+              <text>3 天后复诊</text>
+            </view>
+            <view class="treatment-tag" @tap="toggleTreatment('多喝水')">
+              <text>多喝水</text>
+            </view>
+          </view>
+          <view class="notes-dashed mt-4">
+            <text>备注：检查单、化验结果、医生口头建议等</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存就诊记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedTreatments = ref<string[]>(['已开药', '复诊'])
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function toggleTreatment(treatment: string) {
+    const index = selectedTreatments.value.indexOf(treatment)
+    if (index > -1) {
+      selectedTreatments.value.splice(index, 1)
+    } else {
+      selectedTreatments.value.push(treatment)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #f5f3ff;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-violet {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #a855f7 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .visit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hospital-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .hospital-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .hospital-block-active {
+    background-color: #f5f3ff;
+    border: 1px solid #e9d5ff;
+  }
+
+  .hospital-block-active .info-label {
+    color: #7c3aed;
+  }
+
+  .info-label {
+    font-size: 12px;
+    color: #9ca3af;
+    display: block;
+  }
+
+  .info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .conclusion-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .conclusion-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    display: block;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .treatment-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .treatment-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .treatment-tag-active {
+    background-color: #ede9fe;
+    color: #6d28d9;
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #8b5cf6;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

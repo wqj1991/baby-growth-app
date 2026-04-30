@@ -1,0 +1,186 @@
+{
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
+	"pages": [
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f6f8fc"
+			}
+		},
+		{
+			"path": "pages/home/detail",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f6f8fc"
+			}
+		},
+		{
+			"path": "pages/record/index",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f9fafb"
+			}
+		},
+		{
+			"path": "pages/profile/index",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f9fafb"
+			}
+		},
+		{
+			"path": "pages/stats/index",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f6f8fc"
+			}
+		},
+		{
+			"path": "pages/log/feeding",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f0f9ff"
+			}
+		},
+		{
+			"path": "pages/log/potty",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#fef3c7"
+			}
+		},
+		{
+			"path": "pages/log/sleep",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#eef2ff"
+			}
+		},
+		{
+			"path": "pages/log/growth",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#ecfdf5"
+			}
+		},
+		{
+			"path": "pages/log/health-more",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#fff1f2"
+			}
+		},
+		{
+			"path": "pages/log/temperature",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#fff1f2"
+			}
+		},
+		{
+			"path": "pages/log/medication",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f0f9ff"
+			}
+		},
+		{
+			"path": "pages/log/vaccine",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#ecfdf5"
+			}
+		},
+		{
+			"path": "pages/log/symptom",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#fffbeb"
+			}
+		},
+		{
+			"path": "pages/log/visit",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f5f3ff"
+			}
+		},
+		{
+			"path": "pages/log/custom-event",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f1f5f9"
+			}
+		},
+		{
+			"path": "pages/profile/baby-profile-edit",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#ecfeff"
+			}
+		},
+		{
+			"path": "pages/profile/family-space-manage",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#ecfdf5"
+			}
+		},
+		{
+			"path": "pages/profile/quark-gateway",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#e0f2fe"
+			}
+		},
+		{
+			"path": "pages/profile/record-item-settings",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f1f5f9"
+			}
+		},
+		{
+			"path": "pages/profile/album-manage",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#fef3c7"
+			}
+		},
+		{
+			"path": "pages/profile/cache-manage",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#ccfbf1"
+			}
+		},
+		{
+			"path": "pages/profile/system-settings",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#f1f5f9"
+			}
+		},
+		{
+			"path": "pages/profile/message-manage",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColor": "#eef2ff"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app x",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}

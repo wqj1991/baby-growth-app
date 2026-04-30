@@ -1,0 +1,435 @@
+<template>
+  <view class="page-root">
+    <view class="status-bar">
+      <text class="status-time">10:35</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <view class="nav-bar">
+      <navigator class="nav-back" url="/pages/home/index">
+        <uni-icons type="left" :size="20" color="#1f2937"></uni-icons>
+      </navigator>
+      <text class="nav-title">统计中心</text>
+      <view class="nav-right"></view>
+    </view>
+
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <view class="stats-container">
+        <view class="stats-header">
+          <text class="stats-date">2024年01月</text>
+        </view>
+
+        <view class="stats-tabs">
+          <view class="tab-item tab-item-active">
+            <text class="tab-text">喂养</text>
+          </view>
+          <view class="tab-item">
+            <text class="tab-text">睡眠</text>
+          </view>
+          <view class="tab-item">
+            <text class="tab-text">换片</text>
+          </view>
+        </view>
+
+        <view class="stats-content">
+          <view class="stats-summary">
+            <view class="summary-card summary-card-blue">
+              <view class="summary-icon">
+                <uni-icons type="wallet-filled" :size="24" color="#3b82f6"></uni-icons>
+              </view>
+              <view class="summary-info">
+                <text class="summary-value">5</text>
+                <text class="summary-label">今日喂养</text>
+              </view>
+            </view>
+            <view class="summary-card summary-card-green">
+              <view class="summary-icon">
+                <uni-icons type="bars" :size="24" color="#22c55e"></uni-icons>
+              </view>
+              <view class="summary-info">
+                <text class="summary-value">10.5h</text>
+                <text class="summary-label">今日睡眠</text>
+              </view>
+            </view>
+            <view class="summary-card summary-card-yellow">
+              <view class="summary-icon">
+                <uni-icons type="paperclip" :size="24" color="#eab308"></uni-icons>
+              </view>
+              <view class="summary-info">
+                <text class="summary-value">6</text>
+                <text class="summary-label">今日换片</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="stats-chart">
+            <text class="section-title">本周趋势</text>
+            <view class="chart-placeholder">
+              <view class="chart-bar" style="height: 60%">
+                <text class="chart-value">5</text>
+                <text class="chart-label">一</text>
+              </view>
+              <view class="chart-bar" style="height: 80%">
+                <text class="chart-value">8</text>
+                <text class="chart-label">二</text>
+              </view>
+              <view class="chart-bar" style="height: 45%">
+                <text class="chart-value">4</text>
+                <text class="chart-label">三</text>
+              </view>
+              <view class="chart-bar" style="height: 90%">
+                <text class="chart-value">9</text>
+                <text class="chart-label">四</text>
+              </view>
+              <view class="chart-bar" style="height: 70%">
+                <text class="chart-value">7</text>
+                <text class="chart-label">五</text>
+              </view>
+              <view class="chart-bar" style="height: 55%">
+                <text class="chart-value">5</text>
+                <text class="chart-label">六</text>
+              </view>
+              <view class="chart-bar chart-bar-today" style="height: 50%">
+                <text class="chart-value">5</text>
+                <text class="chart-label">日</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="stats-record-list">
+            <text class="section-title">喂养记录</text>
+            <view class="record-item">
+              <view class="record-left">
+                <text class="record-time">09:30</text>
+                <text class="record-type">奶粉</text>
+              </view>
+              <view class="record-right">
+                <text class="record-value">180ml</text>
+              </view>
+            </view>
+            <view class="record-item">
+              <view class="record-left">
+                <text class="record-time">12:00</text>
+                <text class="record-type">母乳</text>
+              </view>
+              <view class="record-right">
+                <text class="record-value">15min</text>
+              </view>
+            </view>
+            <view class="record-item">
+              <view class="record-left">
+                <text class="record-time">15:30</text>
+                <text class="record-type">奶粉</text>
+              </view>
+              <view class="record-right">
+                <text class="record-value">150ml</text>
+              </view>
+            </view>
+            <view class="record-item">
+              <view class="record-left">
+                <text class="record-time">18:00</text>
+                <text class="record-type">辅食</text>
+              </view>
+              <view class="record-right">
+                <text class="record-value">80g</text>
+              </view>
+            </view>
+            <view class="record-item">
+              <view class="record-left">
+                <text class="record-time">21:00</text>
+                <text class="record-type">奶粉</text>
+              </view>
+              <view class="record-right">
+                <text class="record-value">200ml</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>
+
+<script setup lang="uts">
+</script>
+
+<style>
+.page-root {
+  flex: 1;
+  height: 100%;
+  background-color: #f6f8fc;
+}
+
+.status-bar {
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.status-time {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.status-icons {
+  flex-direction: row;
+  gap: 0.375rem;
+}
+
+.status-icon {
+  margin-left: 0.375rem;
+}
+
+.nav-bar {
+  height: 3rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-back {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.nav-right {
+  width: 2rem;
+}
+
+.page-scroll {
+  flex: 1;
+  height: 0;
+}
+
+.stats-container {
+  padding: 1rem;
+}
+
+.stats-header {
+  margin-bottom: 1rem;
+}
+
+.stats-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.stats-tabs {
+  flex-direction: row;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.tab-item {
+  flex: 1;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.tab-item-active {
+  background-color: #3b82f6;
+}
+
+.tab-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.stats-content {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-summary {
+  flex-direction: row;
+  gap: 0.75rem;
+}
+
+.summary-card {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.summary-card-blue {
+  border-top: 3px solid #3b82f6;
+}
+
+.summary-card-green {
+  border-top: 3px solid #22c55e;
+}
+
+.summary-card-yellow {
+  border-top: 3px solid #eab308;
+}
+
+.summary-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-card-blue .summary-icon {
+  background-color: #eff6ff;
+}
+
+.summary-card-green .summary-icon {
+  background-color: #f0fdf4;
+}
+
+.summary-card-yellow .summary-icon {
+  background-color: #fefce8;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.summary-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.stats-chart {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.chart-placeholder {
+  height: 10rem;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.chart-bar {
+  width: 2rem;
+  background-color: #3b82f6;
+  border-radius: 0.25rem 0.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 0.25rem;
+}
+
+.chart-bar-today {
+  background-color: #10b981;
+}
+
+.chart-value {
+  font-size: 0.625rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.chart-label {
+  font-size: 0.625rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.stats-record-list {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.record-item {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.record-time {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.record-type {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.record-right {
+  display: flex;
+  align-items: center;
+}
+
+.record-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #3b82f6;
+}
+</style>

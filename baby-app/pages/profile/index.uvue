@@ -1,0 +1,439 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:35</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Profile Header -->
+      <view class="profile-header">
+        <image class="profile-avatar" src="/static/shuijiao.jpg" mode="aspectFill"></image>
+        <view class="profile-info">
+          <text class="profile-name">爸爸</text>
+          <text class="profile-desc">家庭共享账号</text>
+        </view>
+      </view>
+
+      <!-- Settings List -->
+      <view class="settings-container">
+        <!-- Baby & Family -->
+        <view class="settings-group">
+          <view class="settings-item" @tap="goBabyProfileEdit">
+            <view class="settings-icon settings-icon-purple">
+              <uni-icons type="baby" :size="20" color="#a855f7"></uni-icons>
+            </view>
+            <text class="settings-label">宝宝档案编辑</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+          <view class="settings-divider"></view>
+          <view class="settings-item" @tap="goFamilySpaceManage">
+            <view class="settings-icon settings-icon-green">
+              <uni-icons type="person" :size="20" color="#22c55e"></uni-icons>
+            </view>
+            <text class="settings-label">家庭空间管理</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+        </view>
+
+        <!-- Cloud & Storage -->
+        <view class="settings-group">
+          <view class="settings-item" @tap="goQuarkGateway">
+            <view class="settings-icon settings-icon-sky">
+              <uni-icons type="cloud" :size="20" color="#0ea5e9"></uni-icons>
+            </view>
+            <text class="settings-label">夸克网关</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+          <view class="settings-divider"></view>
+          <view class="settings-item" @tap="goRecordItemSettings">
+            <view class="settings-icon settings-icon-slate">
+              <uni-icons type="settings" :size="20" color="#64748b"></uni-icons>
+            </view>
+            <text class="settings-label">添加项管理</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+          <view class="settings-divider"></view>
+          <view class="settings-item" @tap="goAlbumManage">
+            <view class="settings-icon settings-icon-orange">
+              <uni-icons type="image" :size="20" color="#f97316"></uni-icons>
+            </view>
+            <text class="settings-label">相册管理</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+          <view class="settings-divider"></view>
+          <view class="settings-item" @tap="goCacheManage">
+            <view class="settings-icon settings-icon-teal">
+              <uni-icons type="trash" :size="20" color="#14b8a6"></uni-icons>
+            </view>
+            <text class="settings-label">缓存管理</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+        </view>
+
+        <!-- System -->
+        <view class="settings-group">
+          <view class="settings-item" @tap="goSystemSettings">
+            <view class="settings-icon settings-icon-gray">
+              <uni-icons type="gear" :size="20" color="#6b7280"></uni-icons>
+            </view>
+            <text class="settings-label">系统设置</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+          <view class="settings-divider"></view>
+          <view class="settings-item" @tap="goMessageManage">
+            <view class="settings-icon settings-icon-indigo">
+              <uni-icons type="notification" :size="20" color="#6366f1"></uni-icons>
+            </view>
+            <text class="settings-label">消息管理</text>
+            <view class="settings-arrow">
+              <uni-icons type="right" :size="16" color="#9ca3af"></uni-icons>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Tab Bar -->
+    <view class="tab-bar">
+      <navigator class="tab-item" url="/pages/home/index">
+        <view class="tab-icon-wrap">
+          <uni-icons type="home-filled" :size="22" color="#9ca3af"></uni-icons>
+        </view>
+        <text class="tab-label">首页</text>
+      </navigator>
+      <navigator class="tab-item-center" url="/pages/record/index">
+        <view class="tab-center-btn">
+          <uni-icons type="plusempty" :size="45" color="#ffffff"></uni-icons>
+        </view>
+      </navigator>
+      <view class="tab-item tab-item-active">
+        <view class="tab-icon-wrap">
+          <uni-icons type="person-filled" :size="22" color="#3b82f6"></uni-icons>
+        </view>
+        <text class="tab-label">我的</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function navigateTo(url: string) {
+    uni.navigateTo({
+      url,
+      fail: () => {
+        uni.showToast({
+          title: '页面开发中',
+          icon: 'none'
+        })
+      }
+    })
+  }
+
+  function handleLogout() {
+    uni.showModal({
+      title: '提示',
+      content: '确定要退出登录吗？',
+      success: (res) => {
+        if (res.confirm) {
+          uni.showToast({
+            title: '退出登录功能开发中',
+            icon: 'none'
+          })
+        }
+      }
+    })
+  }
+
+  function goBabyProfileEdit() {
+    navigateTo('/pages/profile/baby-profile-edit')
+  }
+
+  function goFamilySpaceManage() {
+    navigateTo('/pages/profile/family-space-manage')
+  }
+
+  function goQuarkGateway() {
+    navigateTo('/pages/profile/quark-gateway')
+  }
+
+  function goRecordItemSettings() {
+    navigateTo('/pages/profile/record-item-settings')
+  }
+
+  function goAlbumManage() {
+    navigateTo('/pages/profile/album-manage')
+  }
+
+  function goCacheManage() {
+    navigateTo('/pages/profile/cache-manage')
+  }
+
+  function goSystemSettings() {
+    navigateTo('/pages/profile/system-settings')
+  }
+
+  function goMessageManage() {
+    navigateTo('/pages/profile/message-manage')
+  }
+
+  function showToast(title: string) {
+    uni.showToast({
+      title,
+      icon: 'none'
+    })
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #f9fafb;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .profile-header {
+    background-color: #ffffff;
+    padding: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+
+  .profile-desc {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .settings-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-group {
+    margin-bottom: 12px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .settings-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .settings-item-danger {
+    justify-content: center;
+  }
+
+  .settings-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+  }
+
+  .settings-icon-purple {
+    background-color: #f3e8ff;
+  }
+
+  .settings-icon-green {
+    background-color: #dcfce7;
+  }
+
+  .settings-icon-sky {
+    background-color: #e0f2fe;
+  }
+
+  .settings-icon-slate {
+    background-color: #f1f5f9;
+  }
+
+  .settings-icon-orange {
+    background-color: #ffedd5;
+  }
+
+  .settings-icon-teal {
+    background-color: #ccfbf1;
+  }
+
+  .settings-icon-gray {
+    background-color: #f3f4f6;
+  }
+
+  .settings-icon-indigo {
+    background-color: #e0e7ff;
+  }
+
+  .settings-icon-red {
+    background-color: #fee2e2;
+  }
+
+  .settings-label {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .settings-label-danger {
+    color: #ef4444;
+    text-align: center;
+  }
+
+  .settings-arrow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .settings-divider {
+    margin: 0 16px;
+    height: 1px;
+    background-color: #e5e7eb;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #e5e7eb;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow: visible;
+  }
+
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab-icon-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+
+  .tab-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .tab-item-active .tab-label {
+    color: #3b82f6;
+  }
+
+  .tab-item-center {
+    margin-top: -40px;
+  }
+
+  .tab-center-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+</style>

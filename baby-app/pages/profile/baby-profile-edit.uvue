@@ -1,0 +1,454 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:40</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-cyan">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">宝宝档案</text>
+          <text class="nav-action">保存</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">档案编辑</text>
+          <text class="header-desc">完善宝宝基础资料、健康偏好和成长里程碑信息。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Avatar Section -->
+        <view class="card">
+          <view class="avatar-row">
+            <view class="avatar-wrapper">
+              <image class="avatar" src="/static/shuijiao.jpg" mode="aspectFill"></image>
+              <view class="avatar-btn">
+                <uni-icons type="camera" :size="12" color="#ffffff"></uni-icons>
+              </view>
+            </view>
+            <view class="avatar-info">
+              <text class="avatar-name">小宝</text>
+              <text class="avatar-desc">昵称可用于时间轴和家庭提醒</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Basic Info -->
+        <view class="card">
+          <text class="card-title">基础信息</text>
+          <view class="grid-2">
+            <view class="grid-item">
+              <text class="grid-label">性别</text>
+              <text class="grid-value">男</text>
+            </view>
+            <view class="grid-item">
+              <text class="grid-label">生日</text>
+              <text class="grid-value">2024-08-14</text>
+            </view>
+            <view class="grid-item">
+              <text class="grid-label">月龄</text>
+              <text class="grid-value">1岁 8个月</text>
+            </view>
+            <view class="grid-item">
+              <text class="grid-label">血型</text>
+              <text class="grid-value">待补充</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Health Preferences -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">健康偏好与注意事项</text>
+            <text class="card-action">编辑</text>
+          </view>
+          <view class="tag-list">
+            <text class="tag tag-rose">鸡蛋过敏待观察</text>
+            <text class="tag tag-sky">夜间易醒</text>
+            <text class="tag tag-emerald">辅食偏爱南瓜</text>
+          </view>
+        </view>
+
+        <!-- Milestones -->
+        <view class="card">
+          <text class="card-title">成长里程碑</text>
+          <view class="milestone-list">
+            <view class="milestone-item">
+              <view class="milestone-info">
+                <text class="milestone-title">第一次翻身</text>
+                <text class="milestone-date">2025-01-10</text>
+              </view>
+              <uni-icons type="pen" :size="16" color="#06b6d4"></uni-icons>
+            </view>
+            <view class="milestone-item">
+              <view class="milestone-info">
+                <text class="milestone-title">第一次独立行走</text>
+                <text class="milestone-date">2026-04-28</text>
+              </view>
+              <uni-icons type="pen" :size="16" color="#06b6d4"></uni-icons>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveProfile">
+        <text>保存档案</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function saveProfile() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #ecfeff;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-cyan {
+    background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #3b82f6 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-action {
+    font-size: 12px;
+    font-weight: 600;
+    color: #06b6d4;
+  }
+
+  .avatar-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .avatar-wrapper {
+    position: relative;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+
+  .avatar-btn {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #06b6d4;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+  }
+
+  .avatar-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .avatar-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .avatar-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .grid-item {
+    background-color: #f1f5f9;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .grid-label {
+    font-size: 12px;
+    color: #9ca3af;
+    display: block;
+  }
+
+  .grid-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .tag-rose {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+
+  .tag-sky {
+    background-color: #e0f2fe;
+    color: #0284c7;
+  }
+
+  .tag-emerald {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+
+  .milestone-list {
+    margin-top: 12px;
+  }
+
+  .milestone-item {
+    background-color: #ecfeff;
+    border: 1px solid #ccfbf1;
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .milestone-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .milestone-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .milestone-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .milestone-date {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #4b5563;
+  }
+
+  .btn-primary {
+    background-color: #06b6d4;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

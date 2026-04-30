@@ -68,3 +68,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 unpackage/
+.hbuilderx/
+.DS_Store

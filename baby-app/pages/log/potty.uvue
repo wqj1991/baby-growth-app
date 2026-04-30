@@ -1,0 +1,456 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:37</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-amber">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">日常护理</text>
+          <text class="nav-action">模板</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">大小便记录</text>
+          <text class="header-desc">方便家人快速同步尿布情况，也便于观察规律变化。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Event Type -->
+        <view class="card">
+          <text class="card-title">事件类型</text>
+          <view class="grid-2 mt-3">
+            <view class="grid-btn grid-btn-active" @tap="selectType('pee')">
+              <text>小便</text>
+            </view>
+            <view class="grid-btn" @tap="selectType('poop')">
+              <text>大便</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Condition Selection -->
+        <view class="card">
+          <text class="card-title">情况选择</text>
+          <view class="grid-3 mt-3">
+            <view class="condition-btn condition-btn-active" @tap="selectCondition('normal')">
+              <text>正常</text>
+            </view>
+            <view class="condition-btn" @tap="selectCondition('more')">
+              <text>偏多</text>
+            </view>
+            <view class="condition-btn" @tap="selectCondition('less')">
+              <text>偏少</text>
+            </view>
+            <view class="condition-btn" @tap="selectCondition('thin')">
+              <text>偏稀</text>
+            </view>
+            <view class="condition-btn" @tap="selectCondition('hard')">
+              <text>偏硬</text>
+            </view>
+            <view class="condition-btn" @tap="selectCondition('observe')">
+              <text>需观察</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Diaper Time -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">换尿布时间</text>
+            <text class="card-badge">今天已记录 6 次</text>
+          </view>
+          <view class="time-card">
+            <view class="time-row">
+              <text class="time-label">最近一次</text>
+              <text class="time-value">09:15</text>
+            </view>
+            <text class="current-time">10:38</text>
+            <view class="progress-bar">
+              <view class="progress-fill"></view>
+            </view>
+            <text class="time-note">距离上次间隔 1 小时 23 分钟</text>
+          </view>
+        </view>
+
+        <!-- Additional Info -->
+        <view class="card">
+          <text class="card-title">附加信息</text>
+          <view class="additional-list">
+            <view class="additional-item">
+              <text class="additional-label">是否红屁屁护理</text>
+              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+            </view>
+            <view class="additional-item">
+              <text class="additional-label">是否拍照留档</text>
+              <uni-icons type="switch" :size="28" color="#d1d5db"></uni-icons>
+            </view>
+            <view class="additional-item additional-item-dashed">
+              <text class="additional-placeholder">补充描述：颜色、状态、是否更换品牌等</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存护理记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedType = ref('pee')
+  let selectedCondition = ref('normal')
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function selectType(type: string) {
+    selectedType.value = type
+  }
+
+  function selectCondition(condition: string) {
+    selectedCondition.value = condition
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #fef3c7;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-amber {
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ef4444 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f59e0b;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .grid-btn {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .grid-btn-active {
+    background-color: #f59e0b;
+    color: #ffffff;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .condition-btn {
+    padding: 14px 8px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .condition-btn-active {
+    background-color: #fef3c7;
+    color: #d97706;
+  }
+
+  .time-card {
+    background-color: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+
+  .time-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .time-label {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .time-value {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .current-time {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 8px;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background-color: #fde68a;
+    border-radius: 4px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 60%;
+    background-color: #f59e0b;
+    border-radius: 4px;
+  }
+
+  .time-note {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .additional-list {
+    margin-top: 12px;
+  }
+
+  .additional-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  .additional-item-dashed {
+    border: 1px dashed #e2e8f0;
+    background-color: transparent;
+    color: #9ca3af;
+    justify-content: flex-start;
+  }
+
+  .additional-label {
+    flex: 1;
+  }
+
+  .additional-placeholder {
+    font-size: 13px;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

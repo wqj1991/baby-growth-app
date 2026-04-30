@@ -1,0 +1,381 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:52</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-emerald">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康记录</text>
+          <text class="nav-action">档案</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">疫苗记录</text>
+          <text class="header-desc">记录接种信息、接种点、批次以及接种后观察情况。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Vaccination Info -->
+        <view class="card">
+          <text class="card-title">接种信息</text>
+          <view class="vaccine-info mt-3">
+            <view class="vaccine-name-card">
+              <text class="info-label">疫苗名称</text>
+              <text class="info-value">13价肺炎疫苗</text>
+            </view>
+            <view class="vaccine-details">
+              <view class="detail-block">
+                <text class="info-label">接种日期</text>
+                <text class="info-value">2026-04-28</text>
+              </view>
+              <view class="detail-block">
+                <text class="info-label">批次号</text>
+                <text class="info-value">PN-240428</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- Location and Dose -->
+        <view class="card">
+          <text class="card-title">接种地点与剂次</text>
+          <view class="location-grid mt-3">
+            <view class="location-block">
+              <text class="info-label">接种点</text>
+              <text class="info-value">社区卫生服务中心</text>
+            </view>
+            <view class="location-block">
+              <text class="info-label">剂次</text>
+              <text class="info-value">第 3 针</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Observation -->
+        <view class="card">
+          <text class="card-title">接种后观察</text>
+          <view class="observe-tags mt-3">
+            <view class="observe-tag observe-tag-active" @tap="toggleObserve('留观')">
+              <text>已留观 30 分钟</text>
+            </view>
+            <view class="observe-tag" @tap="toggleObserve('红肿')">
+              <text>针口轻微红</text>
+            </view>
+            <view class="observe-tag" @tap="toggleObserve('精神正常')">
+              <text>精神正常</text>
+            </view>
+          </view>
+          <view class="notes-dashed mt-4">
+            <text>备注：接种禁忌、接种证照片、回访时间等</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存疫苗记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedObserves = ref<string[]>(['留观'])
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function toggleObserve(observe: string) {
+    const index = selectedObserves.value.indexOf(observe)
+    if (index > -1) {
+      selectedObserves.value.splice(index, 1)
+    } else {
+      selectedObserves.value.push(observe)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #ecfdf5;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .vaccine-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .vaccine-name-card {
+    background-color: #d1fae5;
+    border: 1px solid #a7f3d0;
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .vaccine-name-card .info-label {
+    color: #059669;
+  }
+
+  .info-label {
+    font-size: 12px;
+    color: #6b7280;
+    display: block;
+  }
+
+  .info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .vaccine-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .detail-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .detail-block .info-label {
+    color: #9ca3af;
+  }
+
+  .location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .location-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .observe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .observe-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .observe-tag-active {
+    background-color: #d1fae5;
+    color: #047857;
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

@@ -1,0 +1,444 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:48</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-amber">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">媒体管理</text>
+          <text class="nav-action">整理</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">相册管理</text>
+          <text class="header-desc">管理照片/视频分组、封面、可见范围与网盘同步状态。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Space Overview -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">空间概览</text>
+            <text class="card-badge">共 1240 项</text>
+          </view>
+          <view class="stats-grid">
+            <view class="stat-item stat-item-amber">
+              <text class="stat-value">986</text>
+              <text class="stat-label">照片</text>
+            </view>
+            <view class="stat-item stat-item-orange">
+              <text class="stat-value">254</text>
+              <text class="stat-label">视频</text>
+            </view>
+            <view class="stat-item stat-item-rose">
+              <text class="stat-value">36.8 GB</text>
+              <text class="stat-label">占用</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Album Groups -->
+        <view class="card">
+          <text class="card-title">相册分组</text>
+          <view class="group-list">
+            <view class="group-item" @tap="openGroup">
+              <view class="group-info">
+                <text class="group-name">成长里程碑</text>
+                <text class="group-desc">96 项 · 自动封面</text>
+              </view>
+              <uni-icons type="right" :size="16" color="#d1d5db"></uni-icons>
+            </view>
+            <view class="group-item" @tap="openGroup">
+              <view class="group-info">
+                <text class="group-name">健康记录附件</text>
+                <text class="group-desc">122 项 · 仅家庭可见</text>
+              </view>
+              <uni-icons type="right" :size="16" color="#d1d5db"></uni-icons>
+            </view>
+            <view class="group-item" @tap="openGroup">
+              <view class="group-info">
+                <text class="group-name">日常抓拍</text>
+                <text class="group-desc">1022 项 · 按月归档</text>
+              </view>
+              <uni-icons type="right" :size="16" color="#d1d5db"></uni-icons>
+            </view>
+          </view>
+        </view>
+
+        <!-- Media Actions -->
+        <view class="card">
+          <text class="card-title">媒体操作</text>
+          <view class="action-list">
+            <view class="action-item" @tap="batchMove">
+              <text class="action-label">批量移动到相册</text>
+              <uni-icons type="right" :size="16" color="#f59e0b"></uni-icons>
+            </view>
+            <view class="action-item" @tap="cleanDuplicates">
+              <text class="action-label">重复照片清理</text>
+              <uni-icons type="trash" :size="16" color="#f59e0b"></uni-icons>
+            </view>
+            <view class="action-item" @tap="retrySync">
+              <text class="action-label">同步失败重试</text>
+              <uni-icons type="refresh" :size="16" color="#f59e0b"></uni-icons>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>返回我的</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveSettings">
+        <text>保存相册设置</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function openGroup() {
+    uni.showToast({
+      title: '开发中',
+      icon: 'none'
+    })
+  }
+
+  function batchMove() {
+    uni.showToast({
+      title: '开发中',
+      icon: 'none'
+    })
+  }
+
+  function cleanDuplicates() {
+    uni.showToast({
+      title: '开发中',
+      icon: 'none'
+    })
+  }
+
+  function retrySync() {
+    uni.showToast({
+      title: '开发中',
+      icon: 'none'
+    })
+  }
+
+  function saveSettings() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #fef3c7;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-amber {
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ef4444 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f59e0b;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .stat-item {
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .stat-item-amber {
+    background-color: #fef3c7;
+  }
+
+  .stat-item-orange {
+    background-color: #fff7ed;
+  }
+
+  .stat-item-rose {
+    background-color: #fee2e2;
+  }
+
+  .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+  }
+
+  .stat-item-amber .stat-value {
+    color: #d97706;
+  }
+
+  .stat-item-orange .stat-value {
+    color: #ea580c;
+  }
+
+  .stat-item-rose .stat-value {
+    color: #dc2626;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .group-list {
+    margin-top: 12px;
+  }
+
+  .group-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    margin-bottom: 12px;
+  }
+
+  .group-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .group-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .group-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .group-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+
+  .action-list {
+    margin-top: 12px;
+  }
+
+  .action-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #fef3c7;
+    border: 1px solid #fcd34d;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  .action-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #4b5563;
+  }
+
+  .btn-primary {
+    background-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

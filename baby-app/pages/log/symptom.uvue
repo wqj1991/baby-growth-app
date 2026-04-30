@@ -1,0 +1,382 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:53</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-amber">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康记录</text>
+          <text class="nav-action">观察</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">症状记录</text>
+          <text class="header-desc">记录咳嗽、流涕、呕吐、皮疹等异常表现，方便连续观察。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Symptom Type -->
+        <view class="card">
+          <text class="card-title">症状类型</text>
+          <view class="symptom-grid mt-3">
+            <view class="symptom-btn symptom-btn-active" @tap="selectSymptom('咳嗽')">
+              <text>咳嗽</text>
+            </view>
+            <view class="symptom-btn" @tap="selectSymptom('流涕')">
+              <text>流涕</text>
+            </view>
+            <view class="symptom-btn" @tap="selectSymptom('呕吐')">
+              <text>呕吐</text>
+            </view>
+            <view class="symptom-btn" @tap="selectSymptom('皮疹')">
+              <text>皮疹</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Severity -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">严重程度</text>
+            <text class="card-badge">中度</text>
+          </view>
+          <view class="severity-display mt-3">
+            <text class="severity-value">2 / 3</text>
+            <slider class="severity-slider" min="1" max="3" value="2" @change="onSeverityChange" />
+          </view>
+        </view>
+
+        <!-- Accompanying Symptoms -->
+        <view class="card">
+          <text class="card-title">伴随表现</text>
+          <view class="accompany-tags mt-3">
+            <view class="accompany-tag accompany-tag-active" @tap="toggleAccompany('夜里更明显')">
+              <text>夜里更明显</text>
+            </view>
+            <view class="accompany-tag" @tap="toggleAccompany('影响睡眠')">
+              <text>影响睡眠</text>
+            </view>
+            <view class="accompany-tag" @tap="toggleAccompany('食欲变差')">
+              <text>食欲变差</text>
+            </view>
+          </view>
+          <view class="notes-dashed mt-4">
+            <text>备注：出现频率、持续时长、是否和发热一起出现</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存症状记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedSymptom = ref('咳嗽')
+  let severity = ref(2)
+  let selectedAccompanies = ref<string[]>(['夜里更明显'])
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function selectSymptom(symptom: string) {
+    selectedSymptom.value = symptom
+  }
+
+  function onSeverityChange(e: { detail: { value: number } }) {
+    severity.value = e.detail.value
+  }
+
+  function toggleAccompany(accompany: string) {
+    const index = selectedAccompanies.value.indexOf(accompany)
+    if (index > -1) {
+      selectedAccompanies.value.splice(index, 1)
+    } else {
+      selectedAccompanies.value.push(accompany)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #fffbeb;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-amber {
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #eab308 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f59e0b;
+  }
+
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .symptom-btn {
+    padding: 14px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .symptom-btn-active {
+    background-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+
+  .severity-display {
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .severity-value {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d97706;
+    display: block;
+  }
+
+  .severity-slider {
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .accompany-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .accompany-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .accompany-tag-active {
+    background-color: #fef3c7;
+    color: #b45309;
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

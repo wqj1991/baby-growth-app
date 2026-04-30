@@ -1,0 +1,420 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:50</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-rose">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康记录</text>
+          <text class="nav-action">模板</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">体温记录</text>
+          <text class="header-desc">记录测温方式、温度数值和处理措施，适合发热追踪。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Current Temperature -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">当前温度</text>
+            <text class="card-badge">高于日常均值</text>
+          </view>
+          <view class="temp-display mt-4">
+            <text class="temp-value">38.2</text>
+            <text class="temp-unit">°C</text>
+          </view>
+          <slider class="temp-slider" min="35" max="41" value="38.2" step="0.1" @change="onTempChange" />
+          <view class="temp-stats mt-3">
+            <view class="stat-item">
+              <text>上次 37.6°C</text>
+            </view>
+            <view class="stat-item">
+              <text>今日第 3 次</text>
+            </view>
+            <view class="stat-item">
+              <text>间隔 2h</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Measurement Method -->
+        <view class="card">
+          <text class="card-title">测量方式</text>
+          <view class="method-grid mt-3">
+            <view class="method-btn method-btn-active" @tap="selectMethod('ear')">
+              <text>耳温</text>
+            </view>
+            <view class="method-btn" @tap="selectMethod('forehead')">
+              <text>额温</text>
+            </view>
+            <view class="method-btn" @tap="selectMethod('armpit')">
+              <text>腋温</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Accompanying Symptoms -->
+        <view class="card">
+          <text class="card-title">伴随情况</text>
+          <view class="symptom-tags mt-3">
+            <view class="symptom-tag symptom-tag-active" @tap="toggleSymptom('normal')">
+              <text>精神一般</text>
+            </view>
+            <view class="symptom-tag" @tap="toggleSymptom('poorAppetite')">
+              <text>食欲下降</text>
+            </view>
+            <view class="symptom-tag" @tap="toggleSymptom('物理降温')">
+              <text>已物理降温</text>
+            </view>
+            <view class="symptom-tag" @tap="toggleSymptom('已服药')">
+              <text>已服药</text>
+            </view>
+          </view>
+          <view class="notes-dashed mt-4">
+            <text>备注：是否精神差、是否寒战、是否刚睡醒等</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存体温记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let temperature = ref(38.2)
+  let selectedMethod = ref('ear')
+  let selectedSymptoms = ref<string[]>(['normal'])
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function onTempChange(e: { detail: { value: number } }) {
+    temperature.value = e.detail.value
+  }
+
+  function selectMethod(method: string) {
+    selectedMethod.value = method
+  }
+
+  function toggleSymptom(symptom: string) {
+    const index = selectedSymptoms.value.indexOf(symptom)
+    if (index > -1) {
+      selectedSymptoms.value.splice(index, 1)
+    } else {
+      selectedSymptoms.value.push(symptom)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #fff1f2;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-rose {
+    background: linear-gradient(135deg, #f43f5e 0%, #ef4444 50%, #f97316 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(244, 63, 94, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f43f5e;
+  }
+
+  .temp-display {
+    background-color: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .temp-value {
+    font-size: 56px;
+    font-weight: 700;
+    color: #e11d48;
+    line-height: 1;
+  }
+
+  .temp-unit {
+    font-size: 20px;
+    color: #fb7185;
+    margin-top: 8px;
+  }
+
+  .temp-slider {
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .temp-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-item {
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .method-btn {
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .method-btn-active {
+    background-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
+  }
+
+  .symptom-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .symptom-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .symptom-tag-active {
+    background-color: #ffe4e6;
+    color: #be123c;
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

@@ -1,0 +1,344 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:55</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-slate">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">健康记录</text>
+          <text class="nav-action">设为模板</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">自定义事件</text>
+          <text class="header-desc">用于记录未预置的健康事件，例如过敏、磕碰、夜间惊醒、换药反应等。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Event Name -->
+        <view class="card">
+          <text class="card-title">事件名称</text>
+          <view class="event-name-card mt-3">
+            <text class="info-label">标题</text>
+            <text class="info-value">疑似草莓过敏</text>
+          </view>
+        </view>
+
+        <!-- Event Tags -->
+        <view class="card">
+          <text class="card-title">事件标签</text>
+          <view class="tag-list mt-3">
+            <view class="tag tag-active" @tap="toggleTag('过敏')">
+              <text>过敏</text>
+            </view>
+            <view class="tag" @tap="toggleTag('磕碰')">
+              <text>磕碰</text>
+            </view>
+            <view class="tag" @tap="toggleTag('反应观察')">
+              <text>反应观察</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Description -->
+        <view class="card">
+          <text class="card-title">详细描述</text>
+          <view class="description-dashed mt-3">
+            <text>例如：上午第一次吃草莓后，嘴周出现轻微红点，30 分钟后逐渐消退，无呕吐和喘息。</text>
+          </view>
+          <view class="detail-grid mt-4">
+            <view class="detail-block">
+              <text class="info-label">发生时间</text>
+              <text class="info-value">10:20</text>
+            </view>
+            <view class="detail-block">
+              <text class="info-label">风险级别</text>
+              <text class="info-value">需持续观察</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存自定义事件</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedTags = ref<string[]>(['过敏'])
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function toggleTag(tag: string) {
+    const index = selectedTags.value.indexOf(tag)
+    if (index > -1) {
+      selectedTags.value.splice(index, 1)
+    } else {
+      selectedTags.value.push(tag)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #f1f5f9;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-slate {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 50%, #0f172a 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(51, 65, 85, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .event-name-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .info-label {
+    font-size: 12px;
+    color: #9ca3af;
+    display: block;
+  }
+
+  .info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .tag-active {
+    background-color: #1e293b;
+    color: #ffffff;
+  }
+
+  .description-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .detail-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #1e293b;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(30, 41, 59, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

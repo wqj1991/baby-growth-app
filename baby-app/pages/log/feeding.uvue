@@ -1,0 +1,511 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:36</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-sky">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">快速记录</text>
+          <text class="nav-action">草稿</text>
+        </view>
+        <view class="header-content">
+          <view class="header-badge">
+            <uni-icons type="bottle-droplet" :size="12" color="#ffffff"></uni-icons>
+            <text>今日第 5 次喂养</text>
+          </view>
+          <text class="header-title">喂养记录</text>
+          <text class="header-desc">快速补充奶量、辅食和宝宝状态，保存后会同步到时间轴。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Feeding Type -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">喂养类型</text>
+            <text class="card-link" @tap="goFeedingTypes">去我的里配置</text>
+          </view>
+          <view class="type-grid mt-3">
+            <view class="type-btn type-btn-active" @tap="selectType('milk')">
+              <text>奶粉</text>
+            </view>
+            <view class="type-btn" @tap="selectType('breast')">
+              <text>母乳</text>
+            </view>
+            <view class="type-btn" @tap="selectType('solid')">
+              <text>辅食</text>
+            </view>
+          </view>
+          <view class="sync-note mt-3">
+            <text>已同步你的配置：奶粉、母乳、辅食、喝水。最近新增的"喝水"会在下一次记录时优先展示。</text>
+          </view>
+        </view>
+
+        <!-- Feeding Amount -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">喂养量</text>
+            <text class="card-badge">建议范围 150 - 210 ml</text>
+          </view>
+          <view class="amount-display mt-4">
+            <view class="amount-row">
+              <text class="amount-value">180</text>
+              <text class="amount-unit">ml</text>
+            </view>
+            <slider class="amount-slider" min="30" max="300" value="180" step="5" @change="onAmountChange" />
+          </view>
+          <view class="amount-stats mt-4">
+            <view class="stat-item">
+              <text>上次 160 ml</text>
+            </view>
+            <view class="stat-item">
+              <text>平均 175 ml</text>
+            </view>
+            <view class="stat-item">
+              <text>间隔 3 小时</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Record Time -->
+        <view class="card">
+          <text class="card-title">记录时间</text>
+          <view class="time-row mt-3">
+            <view class="time-block">
+              <text class="time-label">开始</text>
+              <text class="time-value">10:20</text>
+            </view>
+            <view class="time-block">
+              <text class="time-label">时长</text>
+              <text class="time-value">18 分钟</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Baby Status -->
+        <view class="card">
+          <text class="card-title">宝宝状态</text>
+          <view class="status-tags mt-3">
+            <view class="status-tag status-tag-active" @tap="toggleStatus('good')">
+              <text>胃口不错</text>
+            </view>
+            <view class="status-tag" @tap="toggleStatus('slow')">
+              <text>喝得有点慢</text>
+            </view>
+            <view class="status-tag" @tap="toggleStatus('burp')">
+              <text>喂后拍嗝</text>
+            </view>
+            <view class="status-tag" @tap="toggleStatus('spit')">
+              <text>有吐奶</text>
+            </view>
+          </view>
+          <view class="notes-dashed mt-4">
+            <text>补充备注：例如换了新奶粉、辅食接受度更高等</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存喂养记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedType = ref('milk')
+  let selectedStatuses = ref<string[]>(['good'])
+  let amount = ref(180)
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function goFeedingTypes() {
+    uni.showToast({
+      title: '去我的里配置',
+      icon: 'none'
+    })
+  }
+
+  function selectType(type: string) {
+    selectedType.value = type
+  }
+
+  function onAmountChange(e: { detail: { value: number } }) {
+    amount.value = e.detail.value
+  }
+
+  function toggleStatus(status: string) {
+    const index = selectedStatuses.value.indexOf(status)
+    if (index > -1) {
+      selectedStatuses.value.splice(index, 1)
+    } else {
+      selectedStatuses.value.push(status)
+    }
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #f1f5f9;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-sky {
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #2563eb 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #ffffff;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    margin-top: 12px;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0ea5e9;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: #0ea5e9;
+  }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 -6px;
+  }
+
+  .type-btn {
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    margin: 12px 6px;
+  }
+
+  .type-btn-active {
+    background-color: #0ea5e9;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+  }
+
+  .sync-note {
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 12px;
+    color: #0369a1;
+  }
+
+  .amount-display {
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 20px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .amount-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .amount-value {
+    font-size: 56px;
+    font-weight: 700;
+    color: #0369a1;
+    line-height: 1;
+  }
+
+  .amount-unit {
+    font-size: 18px;
+    color: #0891b2;
+    margin-bottom: 8px;
+  }
+
+  .amount-slider {
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .amount-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-item {
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .time-block {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+
+  .time-label {
+    font-size: 12px;
+    color: #9ca3af;
+    display: block;
+  }
+
+  .time-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .status-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .status-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .status-tag-active {
+    background-color: #d1fae5;
+    color: #047857;
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #0ea5e9;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

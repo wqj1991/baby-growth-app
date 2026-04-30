@@ -1,0 +1,458 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:45</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-sky">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">云端连接</text>
+          <text class="nav-action">保存</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">夸克网关</text>
+          <text class="header-desc">管理夸克云端连接、同步策略、加密与空间映射。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Connection Status -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">连接状态</text>
+            <text class="card-badge">已连接</text>
+          </view>
+          <view class="connection-info">
+            <view class="connection-row">
+              <text class="connection-label">账号</text>
+              <text class="connection-value">baobao_family@quark.cn</text>
+            </view>
+            <view class="connection-row">
+              <text class="connection-label">最后握手</text>
+              <text class="connection-value">今天 10:31</text>
+            </view>
+            <view class="connection-actions">
+              <view class="action-btn" @tap="reAuth">
+                <text>重新鉴权</text>
+              </view>
+              <view class="action-btn" @tap="checkConnection">
+                <text>检测连通性</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- Directory Mapping -->
+        <view class="card">
+          <text class="card-title">目录映射</text>
+          <view class="mapping-list">
+            <view class="mapping-item">
+              <text class="mapping-label">时间轴媒体目录</text>
+              <text class="mapping-value">/Baby/Media</text>
+            </view>
+            <view class="mapping-item">
+              <text class="mapping-label">日志目录</text>
+              <text class="mapping-value">/Baby/Logs</text>
+            </view>
+            <view class="mapping-item">
+              <text class="mapping-label">配置目录</text>
+              <text class="mapping-value">/Baby/Config</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Sync Strategy -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">同步策略</text>
+            <text class="card-badge-sky">按产品规则</text>
+          </view>
+          <view class="switch-list">
+            <view class="switch-item">
+              <text class="switch-label">App 启动自动同步</text>
+              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+            </view>
+            <view class="switch-item">
+              <text class="switch-label">下拉刷新触发同步</text>
+              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+            </view>
+            <view class="switch-item">
+              <text class="switch-label">后台每 10 分钟轮询</text>
+              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+            </view>
+            <view class="switch-item">
+              <text class="switch-label">冲突策略</text>
+              <text class="switch-value">LWW</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Security & Cache -->
+        <view class="card">
+          <text class="card-title">安全与缓存</text>
+          <view class="switch-list">
+            <view class="switch-item">
+              <text class="switch-label">日志/配置加密上传</text>
+              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+            </view>
+            <view class="switch-item">
+              <text class="switch-label">预览缓存上限</text>
+              <text class="switch-value">2 GB</text>
+            </view>
+            <view class="switch-item">
+              <text class="switch-label">缓存有效期</text>
+              <text class="switch-value">7 天</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>返回我的</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveConfig">
+        <text>保存网关配置</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function reAuth() {
+    uni.showToast({
+      title: '重新鉴权中...',
+      icon: 'loading'
+    })
+  }
+
+  function checkConnection() {
+    uni.showToast({
+      title: '检测连通性...',
+      icon: 'loading'
+    })
+  }
+
+  function saveConfig() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #e0f2fe;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-sky {
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #3b82f6 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #10b981;
+  }
+
+  .card-badge-sky {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0ea5e9;
+  }
+
+  .connection-info {
+    background-color: #e0f2fe;
+    border: 1px solid #bae6fd;
+    border-radius: 16px;
+    padding: 12px;
+    margin-top: 12px;
+  }
+
+  .connection-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .connection-row:last-of-type {
+    margin-bottom: 16px;
+  }
+
+  .connection-label {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .connection-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .connection-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    border: 1px solid #7dd3fc;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0ea5e9;
+  }
+
+  .mapping-list {
+    margin-top: 12px;
+  }
+
+  .mapping-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    margin-bottom: 12px;
+  }
+
+  .mapping-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .mapping-label {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .mapping-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .switch-list {
+    margin-top: 12px;
+  }
+
+  .switch-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  .switch-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .switch-label {
+    flex: 1;
+  }
+
+  .switch-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #4b5563;
+  }
+
+  .btn-primary {
+    background-color: #0ea5e9;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

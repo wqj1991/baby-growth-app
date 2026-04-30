@@ -1,0 +1,470 @@
+<template>
+  <view class="page-root">
+    <view class="status-bar">
+      <text class="status-time">10:35</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <view class="nav-bar">
+      <navigator class="nav-back" url="/pages/home/index">
+        <uni-icons type="left" :size="20" color="#1f2937"></uni-icons>
+      </navigator>
+      <text class="nav-title">动态详情</text>
+      <view class="nav-right">
+        <uni-icons type="more" :size="20" color="#1f2937"></uni-icons>
+      </view>
+    </view>
+
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <view class="detail-container">
+        <view class="detail-header">
+          <view class="avatar avatar-mom">
+            <text class="avatar-text">妈</text>
+          </view>
+          <view class="author-info">
+            <text class="author-name">妈妈</text>
+            <text class="author-time">2小时前</text>
+          </view>
+        </view>
+
+        <view class="detail-content">
+          <text class="content-text">今天天气真好，带宝宝去公园玩啦！☀️</text>
+        </view>
+
+        <view class="detail-media">
+          <image class="media-image" src="/static/shuijiao.jpg" mode="widthFix" @tap="onPreviewImage" v-if="!isVideo"></image>
+          <video
+            class="media-video"
+            src=""
+            controls
+            poster="/static/shuijiao.jpg"
+            @tap="onPlayVideo"
+            v-if="isVideo"
+          ></video>
+        </view>
+
+        <view class="detail-actions">
+          <view class="action-item">
+            <uni-icons type="heart" :size="20" color="#6b7280"></uni-icons>
+            <text class="action-count">12</text>
+          </view>
+          <view class="action-item">
+            <uni-icons type="chat" :size="20" color="#6b7280"></uni-icons>
+            <text class="action-count">3</text>
+          </view>
+          <view class="action-item">
+            <uni-icons type="star" :size="20" color="#6b7280"></uni-icons>
+            <text class="action-count">收藏</text>
+          </view>
+        </view>
+
+        <view class="detail-info">
+          <view class="info-card">
+            <view class="info-header">
+              <text class="info-title">记录信息</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">发布者</text>
+              <text class="info-value">妈妈</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">发布时间</text>
+              <text class="info-value">2024年1月15日 10:30</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">地点</text>
+              <text class="info-value">中心公园</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">天气</text>
+              <text class="info-value">晴 25°C</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="detail-comments">
+          <text class="comments-title">评论 (3)</text>
+          <view class="comment-item">
+            <view class="comment-avatar avatar-dad">
+              <text class="avatar-text">爸</text>
+            </view>
+            <view class="comment-content">
+              <view class="comment-header">
+                <text class="comment-name">爸爸</text>
+                <text class="comment-time">1小时前</text>
+              </view>
+              <text class="comment-text">宝宝玩得好开心！</text>
+            </view>
+          </view>
+          <view class="comment-item">
+            <view class="comment-avatar avatar-mom">
+              <text class="avatar-text">妈</text>
+            </view>
+            <view class="comment-content">
+              <view class="comment-header">
+                <text class="comment-name">妈妈</text>
+                <text class="comment-time">30分钟前</text>
+              </view>
+              <text class="comment-text">下次还要再去！</text>
+            </view>
+          </view>
+          <view class="comment-item">
+            <view class="comment-avatar">
+              <text class="avatar-text avatar-text-other">友</text>
+            </view>
+            <view class="comment-content">
+              <view class="comment-header">
+                <text class="comment-name">亲友</text>
+                <text class="comment-time">10分钟前</text>
+              </view>
+              <text class="comment-text">好可爱的宝宝！</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="comment-bar">
+      <input class="comment-input" type="text" placeholder="写评论..." />
+      <view class="comment-send">
+        <text class="send-text">发送</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  const isVideo = ref(false)
+
+  function onPreviewImage() {
+    uni.previewImage({
+      current: '/static/shuijiao.jpg',
+      urls: ['/static/shuijiao.jpg'],
+      fail: () => {
+        uni.showToast({
+          title: '图片加载失败',
+          icon: 'none'
+        })
+      }
+    })
+  }
+
+  function onPlayVideo() {
+    uni.showToast({
+      title: '视频播放功能开发中',
+      icon: 'none'
+    })
+  }
+</script>
+
+<style>
+.page-root {
+  flex: 1;
+  height: 100%;
+  background-color: #f6f8fc;
+}
+
+.status-bar {
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.status-time {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.status-icons {
+  flex-direction: row;
+  gap: 0.375rem;
+}
+
+.status-icon {
+  margin-left: 0.375rem;
+}
+
+.nav-bar {
+  height: 3rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-back {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.nav-right {
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.page-scroll {
+  flex: 1;
+  height: 0;
+}
+
+.detail-container {
+  padding: 1rem;
+}
+
+.detail-header {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+
+.avatar-mom {
+  background-color: #fce7f3;
+}
+
+.avatar-dad {
+  background-color: #dbeafe;
+}
+
+.avatar-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #be185d;
+}
+
+.avatar-dad .avatar-text {
+  color: #1d4ed8;
+}
+
+.avatar-text-other {
+  color: #6b7280;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.author-time {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.detail-content {
+  margin-bottom: 1rem;
+}
+
+.content-text {
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.detail-media {
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.media-image {
+  width: 100%;
+}
+
+.media-video {
+  width: 100%;
+}
+
+.detail-actions {
+  flex-direction: row;
+  gap: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.action-item {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.action-count {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.detail-info {
+  margin-bottom: 1rem;
+}
+
+.info-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.info-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.info-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.info-row {
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.info-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.info-value {
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.detail-comments {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.comments-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.comment-item {
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.comment-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  background-color: #f3f4f6;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.comment-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.comment-time {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.comment-text {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.comment-bar {
+  height: 3.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.75rem;
+}
+
+.comment-input {
+  flex: 1;
+  height: 2.5rem;
+  background-color: #f3f4f6;
+  border-radius: 1.25rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+.comment-send {
+  width: 4rem;
+  height: 2rem;
+  background-color: #3b82f6;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+</style>

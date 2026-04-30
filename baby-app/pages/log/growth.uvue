@@ -1,0 +1,451 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:39</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-full" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-emerald">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">成长测量</text>
+          <text class="nav-action">图表</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">身高 / 体重</text>
+          <text class="header-desc">记录关键成长指标，并和上一次测量做直观对比。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Height & Weight Grid -->
+        <view class="measure-grid">
+          <view class="measure-card">
+            <text class="measure-title">身高</text>
+            <view class="measure-value-card measure-value-emerald">
+              <text class="measure-value">78.5</text>
+              <text class="measure-unit">cm</text>
+            </view>
+            <text class="measure-diff">较上次 +0.8 cm</text>
+          </view>
+          <view class="measure-card">
+            <text class="measure-title">体重</text>
+            <view class="measure-value-card measure-value-cyan">
+              <text class="measure-value">10.6</text>
+              <text class="measure-unit">kg</text>
+            </view>
+            <text class="measure-diff">较上次 +0.3 kg</text>
+          </view>
+        </view>
+
+        <!-- Measure Status -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">本次测量状态</text>
+            <text class="card-badge">建议每周固定时间测量</text>
+          </view>
+          <view class="status-tags mt-3">
+            <view class="status-tag status-tag-active" @tap="selectStatus('beforeMeal')">
+              <text>饭前</text>
+            </view>
+            <view class="status-tag" @tap="selectStatus('afterMeal')">
+              <text>饭后</text>
+            </view>
+            <view class="status-tag" @tap="selectStatus('justWokeUp')">
+              <text>刚睡醒</text>
+            </view>
+            <view class="status-tag" @tap="selectStatus('calm')">
+              <text>情绪稳定</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Growth Trend -->
+        <view class="card">
+          <text class="card-title">成长趋势</text>
+          <view class="trend-chart">
+            <view class="trend-bars">
+              <view class="trend-bar" style="height: 50%"></view>
+              <view class="trend-bar" style="height: 57%"></view>
+              <view class="trend-bar" style="height: 71%"></view>
+              <view class="trend-bar" style="height: 86%"></view>
+              <view class="trend-bar trend-bar-active" style="height: 100%"></view>
+            </view>
+            <view class="trend-labels">
+              <text>12月</text>
+              <text>1月</text>
+              <text>2月</text>
+              <text>3月</text>
+              <text>4月</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Notes -->
+        <view class="card">
+          <text class="card-title">备注</text>
+          <view class="notes-dashed mt-3">
+            <text class="notes-placeholder">补充测量工具、姿势、是否有生病恢复期等</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存成长记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedStatus = ref('beforeMeal')
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function selectStatus(status: string) {
+    selectedStatus.value = status
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #ecfdf5;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .measure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .measure-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .measure-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .measure-value-card {
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .measure-value-emerald {
+    background-color: #d1fae5;
+    border: 1px solid #a7f3d0;
+  }
+
+  .measure-value-cyan {
+    background-color: #cffafe;
+    border: 1px solid #a5f3fc;
+  }
+
+  .measure-value {
+    font-size: 40px;
+    font-weight: 700;
+    color: #047857;
+    display: inline;
+  }
+
+  .measure-value-cyan .measure-value {
+    color: #0891b2;
+  }
+
+  .measure-unit {
+    font-size: 16px;
+    color: #059669;
+    margin-left: 4px;
+  }
+
+  .measure-value-cyan .measure-unit {
+    color: #0e7490;
+  }
+
+  .measure-diff {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #10b981;
+  }
+
+  .status-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .status-tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .status-tag-active {
+    background-color: #d1fae5;
+    color: #047857;
+  }
+
+  .trend-chart {
+    background-color: #1f2937;
+    border-radius: 20px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+
+  .trend-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 112px;
+    gap: 8px;
+  }
+
+  .trend-bar {
+    flex: 1;
+    background-color: rgba(16, 185, 129, 0.3);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .trend-bar-active {
+    background-color: #34d399;
+  }
+
+  .trend-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+
+  .trend-labels text {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .notes-dashed {
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 24px 16px;
+  }
+
+  .notes-placeholder {
+    font-size: 14px;
+    color: #9ca3af;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

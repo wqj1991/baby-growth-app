@@ -1,0 +1,456 @@
+<template>
+  <view class="page-root">
+    <!-- Status Bar -->
+    <view class="status-bar">
+      <text class="status-time">10:38</text>
+      <view class="status-icons">
+        <view class="status-icon">
+          <uni-icons type="signal" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="wifi" :size="15" color="#1f2937"></uni-icons>
+        </view>
+        <view class="status-icon">
+          <uni-icons type="battery-three-quarters" :size="17" color="#1f2937"></uni-icons>
+        </view>
+      </view>
+    </view>
+
+    <!-- Main Content -->
+    <scroll-view class="page-scroll" :show-scrollbar="false">
+      <!-- Header -->
+      <view class="header-indigo">
+        <view class="header-nav">
+          <view class="nav-back" @tap="goBack">
+            <uni-icons type="back" :size="20" color="#ffffff"></uni-icons>
+          </view>
+          <text class="nav-title">睡眠追踪</text>
+          <text class="nav-action">历史</text>
+        </view>
+        <view class="header-content">
+          <text class="header-title">睡眠记录</text>
+          <text class="header-desc">记录白天和夜间睡眠，帮助观察作息节奏是否稳定。</text>
+        </view>
+      </view>
+
+      <!-- Content Section -->
+      <view class="content-section">
+        <!-- Sleep Type -->
+        <view class="card">
+          <text class="card-title">睡眠类型</text>
+          <view class="grid-2 mt-3">
+            <view class="grid-btn grid-btn-active" @tap="selectType('day')">
+              <text>白天睡眠</text>
+            </view>
+            <view class="grid-btn" @tap="selectType('night')">
+              <text>夜间睡眠</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Time Range -->
+        <view class="card">
+          <text class="card-title">时间区间</text>
+          <view class="time-grid mt-3">
+            <view class="time-block time-block-active">
+              <text class="time-label">开始入睡</text>
+              <text class="time-value">13:10</text>
+            </view>
+            <view class="time-block">
+              <text class="time-label">醒来时间</text>
+              <text class="time-value time-value-gray">14:45</text>
+            </view>
+          </view>
+          <view class="duration-block">
+            <text class="duration-label">本次总时长</text>
+            <text class="duration-value">1 小时 35 分</text>
+          </view>
+        </view>
+
+        <!-- Sleep Quality -->
+        <view class="card">
+          <view class="card-header">
+            <text class="card-title">睡眠质量</text>
+            <text class="card-badge">本周平均 9.8h/天</text>
+          </view>
+          <view class="quality-grid mt-3">
+            <view class="quality-btn quality-btn-active" @tap="selectQuality('fallAsleep')">
+              <text>入睡快</text>
+            </view>
+            <view class="quality-btn" @tap="selectQuality('wakeEasy')">
+              <text>易惊醒</text>
+            </view>
+            <view class="quality-btn" @tap="selectQuality('cry')">
+              <text>哭闹</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Before Sleep Status -->
+        <view class="card">
+          <text class="card-title">入睡前状态</text>
+          <view class="status-list mt-3">
+            <view class="status-item">
+              <text class="status-label">已喂奶</text>
+              <uni-icons type="checkmark" :size="18" color="#22c55e"></uni-icons>
+            </view>
+            <view class="status-item">
+              <text class="status-label">白噪音辅助</text>
+              <uni-icons type="checkmark" :size="18" color="#22c55e"></uni-icons>
+            </view>
+            <view class="status-item status-item-dashed">
+              <text class="status-placeholder">补充备注：入睡前玩耍较兴奋、换了睡袋等</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+
+    <!-- Bottom Actions -->
+    <view class="bottom-bar">
+      <view class="btn btn-secondary" @tap="goBack">
+        <text>取消</text>
+      </view>
+      <view class="btn btn-primary btn-wide" @tap="saveRecord">
+        <text>保存睡眠记录</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script setup lang="uts">
+  let selectedType = ref('day')
+  let selectedQuality = ref('fallAsleep')
+
+  function goBack() {
+    uni.navigateBack()
+  }
+
+  function selectType(type: string) {
+    selectedType.value = type
+  }
+
+  function selectQuality(quality: string) {
+    selectedQuality.value = quality
+  }
+
+  function saveRecord() {
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success'
+    })
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/home/index'
+      })
+    }, 1500)
+  }
+</script>
+
+<style>
+  .page-root {
+    flex: 1;
+    height: 100%;
+    background-color: #eef2ff;
+  }
+
+  .status-bar {
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .status-icons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status-icon {
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-scroll {
+    flex: 1;
+    height: 100%;
+  }
+
+  .header-indigo {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+    padding: 20px 20px 32px;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .nav-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .header-content {
+    margin-top: 24px;
+  }
+
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .header-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .content-section {
+    padding: 0 16px;
+    margin-top: -20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6366f1;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .grid-btn {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .grid-btn-active {
+    background-color: #6366f1;
+    color: #ffffff;
+  }
+
+  .time-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .time-block {
+    padding: 16px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+  }
+
+  .time-block-active {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+  }
+
+  .time-label {
+    font-size: 12px;
+    color: #6366f1;
+    display: block;
+  }
+
+  .time-block:not(.time-block-active) .time-label {
+    color: #9ca3af;
+  }
+
+  .time-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .time-value-gray {
+    color: #64748b;
+  }
+
+  .duration-block {
+    background-color: #1f2937;
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+
+  .duration-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+  }
+
+  .duration-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .quality-grid {
+    display: flex;
+    gap: 8px;
+  }
+
+  .quality-btn {
+    flex: 1;
+    padding: 12px 8px;
+    border-radius: 16px;
+    background-color: #f1f5f9;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .quality-btn-active {
+    background-color: #e0e7ff;
+    color: #4f46e5;
+  }
+
+  .status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .status-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  .status-item-dashed {
+    border: 1px dashed #e2e8f0;
+    background-color: transparent;
+    color: #9ca3af;
+    justify-content: flex-start;
+  }
+
+  .status-label {
+    flex: 1;
+  }
+
+  .status-placeholder {
+    font-size: 13px;
+  }
+
+  .bottom-space {
+    height: 100px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+  }
+
+  .btn-primary {
+    background-color: #6366f1;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-wide {
+    flex: 1.4;
+  }
+</style>

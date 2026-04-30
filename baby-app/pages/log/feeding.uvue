@@ -333,7 +333,6 @@
   .type-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin: 0 -6px;
   }
 
   .type-btn {
@@ -344,7 +343,6 @@
     font-size: 14px;
     font-weight: 600;
     color: #64748b;
-    margin: 12px 6px;
   }
 
   .type-btn-active {
@@ -507,5 +505,13 @@
 
   .btn-wide {
     flex: 1.4;
+  }
+
+  .mt-3 {
+    margin-top: 12px;
+  }
+
+  .mt-4 {
+    margin-top: 16px;
   }
 </style>

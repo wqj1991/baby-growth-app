@@ -42,35 +42,35 @@
               <text class="card-title">适合记录什么</text>
               <text class="card-subtitle">按场景选择，后续会同步到首页动态和统计页</text>
             </view>
-            <text class="card-badge">共 6 类</text>
+            <text class="card-badge">已启用 {{ getEnabledHealthCount() }} / 6</text>
           </view>
           <view class="type-grid mt-4">
-            <view class="type-card type-card-rose" @tap="goTemperature">
+            <view v-if="settings.temperature" class="type-card type-card-rose" @tap="goTemperature">
               <uni-icons type="thermometer" :size="20" color="#dc2626"></uni-icons>
               <text class="type-name">体温</text>
               <text class="type-desc">发热、退热后复测</text>
             </view>
-            <view class="type-card type-card-sky" @tap="goMedication">
+            <view v-if="settings.medication" class="type-card type-card-sky" @tap="goMedication">
               <uni-icons type="pill" :size="20" color="#0284c7"></uni-icons>
               <text class="type-name">用药</text>
               <text class="type-desc">剂量、时间、频次</text>
             </view>
-            <view class="type-card type-card-emerald" @tap="goVaccine">
+            <view v-if="settings.vaccine" class="type-card type-card-emerald" @tap="goVaccine">
               <uni-icons type="syringe" :size="20" color="#059669"></uni-icons>
               <text class="type-name">疫苗</text>
               <text class="type-desc">接种日期与批次</text>
             </view>
-            <view class="type-card type-card-amber" @tap="goSymptom">
+            <view v-if="settings.symptom" class="type-card type-card-amber" @tap="goSymptom">
               <uni-icons type="face-dizzy" :size="20" color="#d97706"></uni-icons>
               <text class="type-name">症状</text>
               <text class="type-desc">咳嗽、流涕、呕吐</text>
             </view>
-            <view class="type-card type-card-violet" @tap="goVisit">
+            <view v-if="settings.visit" class="type-card type-card-violet" @tap="goVisit">
               <uni-icons type="notes-medical" :size="20" color="#7c3aed"></uni-icons>
               <text class="type-name">就诊</text>
               <text class="type-desc">医院、科室、结论</text>
             </view>
-            <view class="type-card type-card-slate" @tap="goCustom">
+            <view v-if="settings.customEvent" class="type-card type-card-slate" @tap="goCustom">
               <uni-icons type="ellipsis" :size="20" color="#475569"></uni-icons>
               <text class="type-name">自定义</text>
               <text class="type-desc">例如过敏、磕碰</text>
@@ -169,6 +169,10 @@
 </template>
 
 <script setup lang="uts">
+  import { recordItemStore } from '@/utils/store'
+
+  const settings = recordItemStore.settings
+
   function goBack() {
     uni.navigateBack()
   }
@@ -177,6 +181,10 @@
     uni.switchTab({
       url: '/pages/home/index'
     })
+  }
+
+  function getEnabledHealthCount() {
+    return recordItemStore.getEnabledHealthCount()
   }
 
   function goTemperature() {

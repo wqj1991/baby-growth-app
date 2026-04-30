@@ -52,7 +52,7 @@
 
       <!-- Quick Log Buttons -->
       <view class="log-list">
-        <view class="log-item" @tap="goFeedingLog">
+        <view v-if="settings.feeding" class="log-item" @tap="goFeedingLog">
           <view class="log-icon log-icon-blue">
             <uni-icons type="wallet-filled" :size="24" color="#3b82f6"></uni-icons>
           </view>
@@ -62,7 +62,7 @@
           </view>
         </view>
 
-        <view class="log-item" @tap="goPottyLog">
+        <view v-if="settings.potty" class="log-item" @tap="goPottyLog">
           <view class="log-icon log-icon-amber">
             <uni-icons type="circle-filled" :size="24" color="#d97706"></uni-icons>
           </view>
@@ -72,7 +72,7 @@
           </view>
         </view>
 
-        <view class="log-item" @tap="goSleepLog">
+        <view v-if="settings.sleep" class="log-item" @tap="goSleepLog">
           <view class="log-icon log-icon-indigo">
             <uni-icons type="calendar" :size="24" color="#6366f1"></uni-icons>
           </view>
@@ -82,7 +82,7 @@
           </view>
         </view>
 
-        <view class="log-item" @tap="goGrowthLog">
+        <view v-if="settings.growth" class="log-item" @tap="goGrowthLog">
           <view class="log-icon log-icon-green">
             <uni-icons type="bars" :size="24" color="#22c55e"></uni-icons>
           </view>
@@ -92,7 +92,7 @@
           </view>
         </view>
 
-        <view class="log-item" @tap="goHealthMoreLog">
+        <view v-if="settings.healthMore" class="log-item" @tap="goHealthMoreLog">
           <view class="log-icon log-icon-red">
             <uni-icons type="medal" :size="24" color="#ef4444"></uni-icons>
           </view>
@@ -130,6 +130,10 @@
 </template>
 
 <script setup lang="uts">
+  import { recordItemStore } from '@/utils/store'
+
+  const settings = recordItemStore.settings
+
   function navigateTo(url: string) {
     uni.navigateTo({
       url,

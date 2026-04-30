@@ -42,18 +42,20 @@
               <text class="card-title">基础添加项</text>
               <text class="card-subtitle">对应记录页第一层入口</text>
             </view>
-            <text class="card-badge-emerald">已启用 5 / 5</text>
+            <text class="card-badge-emerald">已启用 {{ getEnabledBasicCount() }} / 5</text>
           </view>
           <view class="basic-items">
-            <view class="basic-item basic-item-sky" @tap="goFeedingTypes">
-              <view class="item-icon item-icon-sky">
-                <uni-icons type="cup-soda" :size="18" color="#ffffff"></uni-icons>
+            <view class="basic-item basic-item-sky">
+              <view class="item-left" @tap="goFeedingTypes">
+                <view class="item-icon item-icon-sky">
+                  <uni-icons type="cup-soda" :size="18" color="#ffffff"></uni-icons>
+                </view>
+                <view class="item-info">
+                  <text class="item-name">喂养</text>
+                  <text class="item-desc">支持自定义喂养类型与展示顺序</text>
+                </view>
               </view>
-              <view class="item-info">
-                <text class="item-name">喂养</text>
-                <text class="item-desc">支持自定义喂养类型与展示顺序</text>
-              </view>
-              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+              <switch :checked="settings.feeding" @change="toggleBasicItem('feeding')" color="#22c55e"></switch>
             </view>
             <view class="basic-item basic-item-amber">
               <view class="item-icon item-icon-amber">
@@ -63,7 +65,7 @@
                 <text class="item-name">大小便</text>
                 <text class="item-desc">护理记录默认展示</text>
               </view>
-              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+              <switch :checked="settings.potty" @change="toggleBasicItem('potty')" color="#22c55e"></switch>
             </view>
             <view class="basic-item basic-item-indigo">
               <view class="item-icon item-icon-indigo">
@@ -73,7 +75,7 @@
                 <text class="item-name">睡眠</text>
                 <text class="item-desc">睡眠追踪常驻显示</text>
               </view>
-              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+              <switch :checked="settings.sleep" @change="toggleBasicItem('sleep')" color="#22c55e"></switch>
             </view>
             <view class="basic-item basic-item-emerald">
               <view class="item-icon item-icon-emerald">
@@ -83,7 +85,7 @@
                 <text class="item-name">身高 / 体重</text>
                 <text class="item-desc">成长指标按周期录入</text>
               </view>
-              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+              <switch :checked="settings.growth" @change="toggleBasicItem('growth')" color="#22c55e"></switch>
             </view>
             <view class="basic-item basic-item-rose" @tap="goHealthMore">
               <view class="item-icon item-icon-rose">
@@ -93,7 +95,7 @@
                 <text class="item-name">更多健康记录</text>
                 <text class="item-desc">管理体温、用药、疫苗等扩展项目</text>
               </view>
-              <uni-icons type="switch" :size="28" color="#22c55e"></uni-icons>
+              <switch :checked="settings.healthMore" @change="toggleBasicItem('healthMore')" color="#22c55e"></switch>
             </view>
           </view>
         </view>
@@ -105,38 +107,38 @@
               <text class="card-title">健康扩展子项</text>
               <text class="card-subtitle">关闭后，将从“更多健康记录”页中隐藏</text>
             </view>
-            <text class="card-badge-amber">已启用 4 / 6</text>
+            <text class="card-badge-amber">已启用 {{ getEnabledHealthCount() }} / 6</text>
           </view>
           <view class="grid-2">
-            <view class="grid-card grid-card-rose">
+            <view :class="['grid-card', settings.temperature ? 'grid-card-rose' : 'grid-card-rose-disabled']">
               <text class="grid-card-title">体温</text>
-              <text class="grid-card-desc">发热追踪</text>
-              <uni-icons type="switch" :size="24" color="#22c55e"></uni-icons>
+              <text class="grid-card-desc">{{ settings.temperature ? '发热追踪' : '当前已关闭' }}</text>
+              <switch :checked="settings.temperature" @change="toggleHealthItem('temperature')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
-            <view class="grid-card grid-card-sky">
+            <view :class="['grid-card', settings.medication ? 'grid-card-sky' : 'grid-card-sky-disabled']">
               <text class="grid-card-title">用药</text>
-              <text class="grid-card-desc">服药提醒</text>
-              <uni-icons type="switch" :size="24" color="#22c55e"></uni-icons>
+              <text class="grid-card-desc">{{ settings.medication ? '服药提醒' : '当前已关闭' }}</text>
+              <switch :checked="settings.medication" @change="toggleHealthItem('medication')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
-            <view class="grid-card grid-card-emerald">
+            <view :class="['grid-card', settings.vaccine ? 'grid-card-emerald' : 'grid-card-emerald-disabled']">
               <text class="grid-card-title">疫苗</text>
-              <text class="grid-card-desc">接种档案</text>
-              <uni-icons type="switch" :size="24" color="#22c55e"></uni-icons>
+              <text class="grid-card-desc">{{ settings.vaccine ? '接种档案' : '当前已关闭' }}</text>
+              <switch :checked="settings.vaccine" @change="toggleHealthItem('vaccine')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
-            <view class="grid-card grid-card-amber">
+            <view :class="['grid-card', settings.symptom ? 'grid-card-amber' : 'grid-card-amber-disabled']">
               <text class="grid-card-title">症状</text>
-              <text class="grid-card-desc">异常表现观察</text>
-              <uni-icons type="switch" :size="24" color="#22c55e"></uni-icons>
+              <text class="grid-card-desc">{{ settings.symptom ? '异常表现观察' : '当前已关闭' }}</text>
+              <switch :checked="settings.symptom" @change="toggleHealthItem('symptom')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
-            <view class="grid-card grid-card-violet-disabled">
+            <view :class="['grid-card', settings.visit ? 'grid-card-violet' : 'grid-card-violet-disabled']">
               <text class="grid-card-title">就诊</text>
-              <text class="grid-card-desc">当前已关闭</text>
-              <uni-icons type="switch" :size="24" color="#d1d5db"></uni-icons>
+              <text class="grid-card-desc">{{ settings.visit ? '门诊记录' : '当前已关闭' }}</text>
+              <switch :checked="settings.visit" @change="toggleHealthItem('visit')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
-            <view class="grid-card grid-card-slate-disabled">
+            <view :class="['grid-card', settings.customEvent ? 'grid-card-slate' : 'grid-card-slate-disabled']">
               <text class="grid-card-title">自定义事件</text>
-              <text class="grid-card-desc">当前已关闭</text>
-              <uni-icons type="switch" :size="24" color="#d1d5db"></uni-icons>
+              <text class="grid-card-desc">{{ settings.customEvent ? '灵活记录' : '当前已关闭' }}</text>
+              <switch :checked="settings.customEvent" @change="toggleHealthItem('customEvent')" color="#22c55e" :style="{marginTop: '8px'}"></switch>
             </view>
           </view>
         </view>
@@ -175,9 +177,17 @@
 </template>
 
 <script setup lang="uts">
+  import { recordItemStore } from '@/utils/store'
+
+  const settings = recordItemStore.settings
+
   function goBack() {
-    uni.switchTab({
-      url: '/pages/record/index'
+    uni.navigateBack({
+      fail: () => {
+        uni.switchTab({
+          url: '/pages/profile/index'
+        })
+      }
     })
   }
 
@@ -199,6 +209,30 @@
     uni.switchTab({
       url: '/pages/record/index'
     })
+  }
+
+  function toggleBasicItem(item: string) {
+    recordItemStore.toggleItem(item as keyof typeof recordItemStore.settings)
+    uni.showToast({
+      title: settings[item as keyof typeof settings] ? '已开启' : '已关闭',
+      icon: 'none'
+    })
+  }
+
+  function toggleHealthItem(item: string) {
+    recordItemStore.toggleItem(item as keyof typeof recordItemStore.settings)
+    uni.showToast({
+      title: settings[item as keyof typeof settings] ? '已开启' : '已关闭',
+      icon: 'none'
+    })
+  }
+
+  function getEnabledBasicCount() {
+    return recordItemStore.getEnabledBasicCount()
+  }
+
+  function getEnabledHealthCount() {
+    return recordItemStore.getEnabledHealthCount()
   }
 </script>
 
@@ -425,6 +459,13 @@
     background-color: #ef4444;
   }
 
+  .item-left {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .item-info {
     flex: 1;
     margin-left: 12px;
@@ -579,5 +620,42 @@
 
   .btn-wide {
     flex: 1.4;
+  }
+
+  /* Disabled Grid Card Styles */
+  .grid-card-rose-disabled {
+    background-color: #fef2f2;
+    border-color: #fee2e2;
+    opacity: 0.65;
+  }
+
+  .grid-card-sky-disabled {
+    background-color: #eff6ff;
+    border-color: #dbeafe;
+    opacity: 0.65;
+  }
+
+  .grid-card-emerald-disabled {
+    background-color: #f0fdf4;
+    border-color: #dcfce7;
+    opacity: 0.65;
+  }
+
+  .grid-card-amber-disabled {
+    background-color: #fffbeb;
+    border-color: #fef3c7;
+    opacity: 0.65;
+  }
+
+  .grid-card-violet-disabled {
+    background-color: #f5f3ff;
+    border-color: #e9d5ff;
+    opacity: 0.65;
+  }
+
+  .grid-card-slate-disabled {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    opacity: 0.65;
   }
 </style>

@@ -28,29 +28,52 @@
           <text class="nav-action">保存</text>
         </view>
         <view class="header-content">
-          <text class="header-title">夸克网关</text>
-          <text class="header-desc">管理夸克云端连接、同步策略、加密与空间映射。</text>
+          <text class="header-title">阿里云OSS</text>
+          <text class="header-desc">管理阿里云OSS连接、同步策略、加密与空间映射。</text>
         </view>
       </view>
 
       <!-- Content Section -->
       <view class="content-section">
+        <!-- OSS Config -->
+        <view class="card">
+          <text class="card-title">OSS 凭证配置</text>
+          <view class="form-list">
+            <view class="form-item">
+              <text class="form-label">Endpoint</text>
+              <input class="form-input" :value="endpoint" @input="onEndpointInput" placeholder="例如 oss-cn-hangzhou.aliyuncs.com" />
+            </view>
+            <view class="form-item">
+              <text class="form-label">Bucket</text>
+              <input class="form-input" :value="bucket" @input="onBucketInput" placeholder="例如 baobao-prod" />
+            </view>
+            <view class="form-item">
+              <text class="form-label">AccessKeyId</text>
+              <input class="form-input" :value="accessKeyId" @input="onAccessKeyIdInput" placeholder="请输入 AccessKeyId" />
+            </view>
+            <view class="form-item">
+              <text class="form-label">AccessKeySecret</text>
+              <input class="form-input" password :value="accessKeySecret" @input="onAccessKeySecretInput" placeholder="请输入 AccessKeySecret" />
+            </view>
+          </view>
+        </view>
+
         <!-- Connection Status -->
         <view class="card">
           <view class="card-header">
             <text class="card-title">连接状态</text>
-            <text class="card-badge">已连接</text>
+            <text class="card-badge">{{ connectionBadge }}</text>
           </view>
           <view class="connection-info">
             <view class="connection-row">
               <text class="connection-label">账号</text>
-              <text class="connection-value">baobao_family@quark.cn</text>
+              <text class="connection-value">{{ accountText }}</text>
             </view>
             <view class="connection-row">
               <text class="connection-label">最后握手</text>
-              <text class="connection-value">今天 10:31</text>
+              <text class="connection-value">{{ handshakeText }}</text>
             </view>
-            <view class="connection-actions">
+            <view class="connection-actions uni-row">
               <view class="action-btn" @tap="reAuth">
                 <text>重新鉴权</text>
               </view>
@@ -130,44 +153,207 @@
     </scroll-view>
 
     <!-- Bottom Actions -->
-    <view class="bottom-bar">
+    <view class="bottom-bar uni-row">
       <view class="btn btn-secondary" @tap="goBack">
         <text>返回我的</text>
       </view>
       <view class="btn btn-primary btn-wide" @tap="saveConfig">
-        <text>保存网关配置</text>
+        <text>保存OSS配置</text>
       </view>
     </view>
   </view>
 </template>
 
 <script setup lang="uts">
+  import {
+    aliOssStorage,
+    connectAliOss,
+    checkAliOssConnection,
+    validateAliOssRuntimeConfig,
+    initializeAliOssProfile
+  } from '@/utils/storage'
+
+  const connectionBadge = ref('未连接')
+  const accountText = ref('未授权账号')
+  const handshakeText = ref('未鉴权')
+  const endpoint = ref('')
+  const bucket = ref('')
+  const accessKeyId = ref('')
+  const accessKeySecret = ref('')
+
+  hydrateConfigForm()
+  hydrateAuthView()
+
   function goBack() {
     uni.navigateBack()
   }
 
-  function reAuth() {
-    uni.showToast({
-      title: '重新鉴权中...',
-      icon: 'loading'
+  function hydrateAuthView() {
+    const runtimeConfig = aliOssStorage.getRuntimeConfig()
+    const session = aliOssStorage.getSession()
+    const validationMessage = validateAliOssRuntimeConfig(runtimeConfig)
+
+    if (session == null) {
+      connectionBadge.value = '未连接'
+      accountText.value = '未授权账号'
+      handshakeText.value = validationMessage.length > 0 ? validationMessage : '未连接OSS'
+      return
+    }
+
+    accountText.value = 'AK: ' + session.account
+
+    if (validationMessage.length === 0) {
+      connectionBadge.value = '已连接'
+      handshakeText.value = '今天 ' + formatClock(new Date())
+      return
+    }
+
+    connectionBadge.value = '已过期'
+    handshakeText.value = validationMessage
+  }
+
+  function hydrateConfigForm() {
+    const runtimeConfig = aliOssStorage.getRuntimeConfig()
+    endpoint.value = runtimeConfig.endpoint
+    bucket.value = runtimeConfig.bucket
+    accessKeyId.value = runtimeConfig.accessKeyId
+    accessKeySecret.value = runtimeConfig.accessKeySecret
+  }
+
+  function persistRuntimeConfig() {
+    const previous = aliOssStorage.getRuntimeConfig()
+    aliOssStorage.setRuntimeConfig({
+      ...previous,
+      endpoint: endpoint.value.trim(),
+      bucket: bucket.value.trim(),
+      accessKeyId: accessKeyId.value.trim(),
+      accessKeySecret: accessKeySecret.value.trim()
     })
   }
 
-  function checkConnection() {
-    uni.showToast({
-      title: '检测连通性...',
-      icon: 'loading'
-    })
+  function inputValue(event: any): string {
+    return (event?.detail?.value ?? '') as string
   }
 
-  function saveConfig() {
-    uni.showToast({
-      title: '保存成功',
-      icon: 'success'
+  function onEndpointInput(event: any) {
+    endpoint.value = inputValue(event)
+  }
+
+  function onBucketInput(event: any) {
+    bucket.value = inputValue(event)
+  }
+
+  function onAccessKeyIdInput(event: any) {
+    accessKeyId.value = inputValue(event)
+  }
+
+  function onAccessKeySecretInput(event: any) {
+    accessKeySecret.value = inputValue(event)
+  }
+
+  async function reAuth() {
+    uni.showLoading({
+      title: '连接OSS中...'
     })
-    setTimeout(() => {
-      uni.navigateBack()
-    }, 1500)
+
+    try {
+      persistRuntimeConfig()
+      const session = await connectAliOss()
+
+      hydrateAuthView()
+      uni.showToast({
+        title: 'OSS连接成功: ' + session.bucket,
+        icon: 'success'
+      })
+    } catch (error) {
+      console.error('Ali OSS connect failed:', error)
+      uni.showToast({
+        title: String(error),
+        icon: 'none'
+      })
+    } finally {
+      uni.hideLoading()
+    }
+  }
+
+  async function checkConnection() {
+    uni.showLoading({
+      title: '检测连通性...'
+    })
+
+    try {
+      persistRuntimeConfig()
+      const session = await checkAliOssConnection()
+      if (session == null) {
+        connectionBadge.value = '未连接'
+        handshakeText.value = '请先配置并连接OSS'
+        uni.showToast({
+          title: '请先配置OSS参数',
+          icon: 'none'
+        })
+        return
+      }
+
+      hydrateAuthView()
+      uni.showToast({
+        title: 'OSS连接正常',
+        icon: 'success'
+      })
+    } catch (error) {
+      console.error('Check connection failed:', error)
+      uni.showToast({
+        title: '检测失败',
+        icon: 'none'
+      })
+    } finally {
+      uni.hideLoading()
+    }
+  }
+
+  function formatClock(date: Date): string {
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const h = hours < 10 ? '0' + hours.toString() : hours.toString()
+    const m = minutes < 10 ? '0' + minutes.toString() : minutes.toString()
+    return h + ':' + m
+  }
+
+  async function saveConfig() {
+    persistRuntimeConfig()
+    const validationMessage = validateAliOssRuntimeConfig(aliOssStorage.getRuntimeConfig())
+    if (validationMessage.length > 0) {
+      uni.showToast({
+        title: validationMessage,
+        icon: 'none'
+      })
+      return
+    }
+
+    uni.showLoading({
+      title: '初始化OSS中...'
+    })
+
+    try {
+      await connectAliOss()
+      await initializeAliOssProfile()
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      hydrateAuthView()
+      uni.showToast({
+        title: '保存并初始化成功',
+        icon: 'success'
+      })
+      setTimeout(() => {
+        uni.navigateBack()
+      }, 1500)
+    } catch (error) {
+      console.error('Initialize OSS profile failed:', error)
+      uni.showToast({
+        title: String(error),
+        icon: 'none'
+      })
+    } finally {
+      uni.hideLoading()
+    }
   }
 </script>
 
@@ -175,7 +361,7 @@
   .page-root {
     flex: 1;
     height: 100%;
-    background-color: #e0f2fe;
+    background-color: #fff7ed;
   }
 
   .status-bar {
@@ -209,10 +395,10 @@
   }
 
   .header-sky {
-    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #3b82f6 100%);
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f59e0b 100%);
     padding: 20px 20px 32px;
     border-radius: 0 0 32px 32px;
-    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.28);
   }
 
   .header-nav {
@@ -300,12 +486,12 @@
   .card-badge-sky {
     font-size: 12px;
     font-weight: 600;
-    color: #0ea5e9;
+    color: #f97316;
   }
 
   .connection-info {
-    background-color: #e0f2fe;
-    border: 1px solid #bae6fd;
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
     border-radius: 16px;
     padding: 12px;
     margin-top: 12px;
@@ -344,11 +530,11 @@
     padding: 10px;
     border-radius: 12px;
     background-color: #ffffff;
-    border: 1px solid #7dd3fc;
+    border: 1px solid #fdba74;
     text-align: center;
     font-size: 13px;
     font-weight: 500;
-    color: #0ea5e9;
+    color: #f97316;
   }
 
   .mapping-list {
@@ -412,6 +598,36 @@
     color: #1e293b;
   }
 
+  .form-list {
+    margin-top: 12px;
+  }
+
+  .form-item {
+    margin-bottom: 12px;
+  }
+
+  .form-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-label {
+    font-size: 12px;
+    color: #9a3412;
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .form-input {
+    height: 40px;
+    background-color: #fff7ed;
+    border: 1px solid #fdba74;
+    border-radius: 12px;
+    padding: 0 12px;
+    font-size: 13px;
+    color: #1e293b;
+  }
+
   .bottom-space {
     height: 100px;
   }
@@ -447,9 +663,9 @@
   }
 
   .btn-primary {
-    background-color: #0ea5e9;
+    background-color: #f97316;
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
   }
 
   .btn-wide {

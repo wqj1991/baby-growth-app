@@ -6,7 +6,7 @@
 			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
 		}
 	},
-	"pages": [
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://doc.dcloud.net.cn/uni-app-x/collocation/pagesjson.html
 		{
 			"path": "pages/home/index",
 			"style": {
@@ -46,77 +46,7 @@
 			"path": "pages/log/feeding",
 			"style": {
 				"navigationStyle": "custom",
-				"backgroundColor": "#f0f9ff"
-			}
-		},
-		{
-			"path": "pages/log/potty",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#fef3c7"
-			}
-		},
-		{
-			"path": "pages/log/sleep",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#eef2ff"
-			}
-		},
-		{
-			"path": "pages/log/growth",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#ecfdf5"
-			}
-		},
-		{
-			"path": "pages/log/health-more",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#fff1f2"
-			}
-		},
-		{
-			"path": "pages/log/temperature",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#fff1f2"
-			}
-		},
-		{
-			"path": "pages/log/medication",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#f0f9ff"
-			}
-		},
-		{
-			"path": "pages/log/vaccine",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#ecfdf5"
-			}
-		},
-		{
-			"path": "pages/log/symptom",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#fffbeb"
-			}
-		},
-		{
-			"path": "pages/log/visit",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#f5f3ff"
-			}
-		},
-		{
-			"path": "pages/log/custom-event",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColor": "#f1f5f9"
+				"backgroundColor": "#f6f8fc"
 			}
 		},
 		{
@@ -134,7 +64,7 @@
 			}
 		},
 		{
-			"path": "pages/profile/quark-gateway",
+			"path": "pages/profile/oss",
 			"style": {
 				"navigationStyle": "custom",
 				"backgroundColor": "#e0f2fe"

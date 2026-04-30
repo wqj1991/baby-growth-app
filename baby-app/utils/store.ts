@@ -29,8 +29,8 @@ const defaultRecordItemSettings: RecordItemSettings = {
   medication: true,
   vaccine: true,
   symptom: true,
-  visit: false,
-  customEvent: false
+  visit: true,
+  customEvent: true
 }
 
 const defaultAppConfig: AppConfig = {
